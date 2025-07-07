@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,600,700");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.container {
+  height: 200vh;
+  background-image: url(https://images.unsplash.com/photo-1538137524007-21e48fa42f3f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ac9fa0975bd2ebad7afd906c5a3a15ab&auto=format&fit=crop&w=1834&q=80);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.div {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  background: #025e73;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s;
+}
+
+.div-container {
+  display: flex;
+  max-width: 720px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  position: absolute;
+  opacity: 1;
+  pointer-events: auto;
+  transition-duration: 0.3s;
+  background: #fff;
+  transform: translateY(0) scale(1);
+}
+
+.div-title {
+  font-size: 26px;
+  margin: 0;
+  font-weight: 400;
+  color: #55311c;
+}
+
+.div-desc {
+  margin: 6px 0 30px 0;
+}
+
+.div-left {
+  padding: 60px 30px 20px;
+  background: #fff;
+  flex: 1.5;
+  transition-duration: 0.5s;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.div-left img {
+  width: 25%;
+}
+
+.div-button {
+  color: #7d695e;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  padding: 10px 40px;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+  transition: 0.3s;
+}
+
+.div-button:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.div-right {
+  flex: 2;
+  font-size: 0;
+  transition: 0.3s;
+  overflow: hidden;
+}
+
+.div-right img {
+  width: 100%;
+  height: 100%;
+  transform: scale(1);
+  -o-object-fit: cover;
+  object-fit: cover;
+  transition-duration: 1.2s;
+}
+
+.div-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div-buttons a {
+  color: #04bf9d;
+  font-size: 14px;
+}
+
+.sign-up {
+  margin: 60px 0 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.sign-up a {
+  color: #8c7569;
+}
+
+.input-button {
+  padding: 8px 12px;
+  outline: none;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  background: #8c7569;
+  font-family: "Nunito", sans-serif;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.input-button:hover {
+  background: #55311c;
+}
+
+.input-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: #8c7569;
+  transition: 0.3s;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.input-block input {
+  outline: 0;
+  border: 0;
+  padding: 4px 0 0;
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+}
+
+.input-block input::-moz-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+
+.input-block input:-ms-input-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+
+.input-block input::placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+
+.input-block:focus-within {
+  border-color: #04bf9d;
+}
+
+.input-block:focus-within .input-label {
+  color: #04bf9d;
+}
+
+.icon-button {
+  outline: 0;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.scroll-down {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #7d695e;
+  font-size: 32px;
+  font-weight: 800;
+  transform: translate(-50%, -50%);
+}
+
+.scroll-down svg {
+  margin-top: 16px;
+  width: 52px;
+  fill: currentColor;
+}
+
+.custom-button {
+  background-color: #04bf9d;
+  background-position: center;
+  border-radius: 0.375rem;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: Arial;
+  font-size: 12px;
+  outline: none;
+  padding: 12px 0px;
+  text-transform: uppercase;
+  transition: background 0.4s ease-in-out;
+  width: 100%;
+}
+
+.custom-button:hover {
+  background: #039b84 radial-gradient(circle, transparent 1%, #039b84 1%) center/15000%;
+}
+
+.custom-button:active {
+  background-color: #037b6d;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+
+@media (max-width: 750px) {
+  .div-container {
+    width: 90%;
+  }
+
+  .div-right {
+    display: none;
+  }
+}
+
+.left-img {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.ele-color {
+  color: #04bf9d;
+  font-size: 1.3rem;
+  margin: 0.5rem 0rem !important;
+}

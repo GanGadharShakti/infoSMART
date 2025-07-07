@@ -1,0 +1,136 @@
+DEBUG - 2025-04-16 04:35:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 04:36:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 04:36:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 04:37:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:05:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:05:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:05:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:05:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:05:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 05:07:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:17:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:18:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-04-16 06:18:05 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3306, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(64): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(64): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-04-16 06:18:05 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+DEBUG - 2025-04-16 06:18:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-04-16 06:18:20 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3306, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(64): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(64): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-04-16 06:18:20 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+DEBUG - 2025-04-16 06:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-04-16 06:18:25 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3306, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(64): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(64): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-04-16 06:18:25 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+DEBUG - 2025-04-16 06:20:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:20:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:20:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:24:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:25:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:50:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-04-16 06:55:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

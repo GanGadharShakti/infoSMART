@@ -1,0 +1,84 @@
+CRITICAL - 2025-03-21 07:52:15 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Reports/reports/lost_business.php"
+[Method: GET, Route: Reports/lost_business]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Reports/reports/lost_business.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Reports/reports/lost_business', [], true)
+ 3 APPPATH\Controllers\Reports.php(19): view('Reports/reports/lost_business')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->lost_business()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-21 07:53:18 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Reports/reports/lost_business.php"
+[Method: GET, Route: Reports/lost_business]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Reports/reports/lost_business.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Reports/reports/lost_business', [], true)
+ 3 APPPATH\Controllers\Reports.php(19): view('Reports/reports/lost_business')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->lost_business()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-21 08:03:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/account_receivable.php"
+[Method: GET, Route: Reports/account_receivable]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/account_receivable.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('reports/account_receivable', [], true)
+ 3 APPPATH\Controllers\Reports.php(25): view('reports/account_receivable')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->account_receivable()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-21 08:04:22 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Reports/account_receivable.php"
+[Method: GET, Route: Reports/account_receivable]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Reports/account_receivable.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Reports/account_receivable', [], true)
+ 3 APPPATH\Controllers\Reports.php(27): view('Reports/account_receivable')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->account_receivable()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-21 08:44:38 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/errorious_leads.php"
+[Method: GET, Route: Reports/errorious_leads]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/errorious_leads.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('reports/errorious_leads', [], true)
+ 3 APPPATH\Controllers\Reports.php(41): view('reports/errorious_leads')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->errorious_leads()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-21 10:04:40 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/customer_list.php"
+[Method: GET, Route: Reports/customer_list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/customer_list.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('reports/customer_list', [], true)
+ 3 APPPATH\Controllers\Reports.php(49): view('reports/customer_list')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->customer_list()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-21 10:42:57 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Reports/customer_list.php"
+[Method: GET, Route: Reports/customer_list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Reports/customer_list.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Reports/customer_list', [], true)
+ 3 APPPATH\Controllers\Reports.php(51): view('Reports/customer_list')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->customer_list()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

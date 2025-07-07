@@ -1,0 +1,163 @@
+DEBUG - 2025-05-08 04:58:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-05-08 04:58:12 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3307, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-08 04:58:12 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+DEBUG - 2025-05-08 04:58:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-05-08 04:58:21 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3307, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-08 04:58:21 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+DEBUG - 2025-05-08 04:58:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-05-08 04:58:24 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3307, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-08 04:58:24 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+DEBUG - 2025-05-08 06:26:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-05-08 06:26:15 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'elesmart', 3307, '', 0)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#4 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#7 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#10 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in C:\xampp\htdocs\eleCRM\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\eleCRM\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\eleCRM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `copy_el...', Array, false)
+#3 C:\xampp\htdocs\eleCRM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\eleCRM\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(12, 0)
+#5 C:\xampp\htdocs\eleCRM\app\Models\EleCustomerLeadModel.php(179): CodeIgniter\BaseModel->findAll(12, 0)
+#6 C:\xampp\htdocs\eleCRM\app\Controllers\Home.php(29): App\Models\EleCustomerLeadModel->getLeadsWithPagination(12, 0)
+#7 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(933): App\Controllers\Home->fetchLeads('1')
+#8 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#9 C:\xampp\htdocs\eleCRM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\eleCRM\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\eleCRM\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\eleCRM\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-08 06:26:15 --> Error in fetchLeads: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+DEBUG - 2025-05-08 09:22:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:35:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:35:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:35:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:36:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:36:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:36:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:36:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:36:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:40:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:40:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:40:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:40:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-05-08 09:40:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

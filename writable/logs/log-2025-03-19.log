@@ -1,0 +1,36 @@
+CRITICAL - 2025-03-19 05:48:06 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Home/all_leads.php"
+[Method: GET, Route: Reports/all_leads]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Home/all_leads.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Home/all_leads', [], true)
+ 3 APPPATH\Controllers\Reports.php(11): view('Home/all_leads')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->all_leads()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-19 05:55:19 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/lost_business.php"
+[Method: GET, Route: Reports/lost_business]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/lost_business.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('reports/lost_business', [], true)
+ 3 APPPATH\Controllers\Reports.php(17): view('reports/lost_business')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->lost_business()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-03-19 09:24:49 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/lost_business.php"
+[Method: GET, Route: Reports/lost_business]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/lost_business.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('reports/lost_business', [], true)
+ 3 APPPATH\Controllers\Reports.php(17): view('reports/lost_business')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reports->lost_business()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reports))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
