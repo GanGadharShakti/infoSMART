@@ -79,46 +79,61 @@
   <!-- Main Content Wrapper -->
   <div class="container-fluid page-body-wrapper">
     <!-- Sidebar Navigation -->
+
+    <?php $userRole = session()->get('user_role'); ?>
+
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">
-        <!-- User Profile in Sidebar -->
-        <!-- Dashboard Link -->
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('dashboard') ?>">
-            <span class="menu-title">Dashboard</span>
-            <i class="mdi mdi-home menu-icon"></i>
-          </a>
-        </li>
 
-        <!-- All Leads Link -->
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('customers') ?>">
-            <span class="menu-title">Customers</span>
-            <i class="mdi mdi-speedometer menu-icon"></i>
-          </a>
-        </li>
+        <!-- Dashboard: ✅ Only for admin -->
+        <?php if (in_array($userRole, ['admin', 'manager'])): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('dashboard') ?>">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
 
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('allemployee') ?>">
-            <span class="menu-title">All Employee</span>
-            <i class="menu-icon fa fa-vcard"></i>
-          </a>
-        </li>
+        <!-- Customers: ✅ Only for admin -->
+        <?php if (in_array($userRole, ['admin', 'manager'])): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('customers') ?>">
+              <span class="menu-title">Customers</span>
+              <i class="mdi mdi-speedometer menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
 
-        <!-- Inventory Items Link -->
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('inventorylist') ?>">
-            <span class="menu-title">Inventory List</span>
-            <i class="mdi mdi-package menu-icon"></i>
-          </a>
-        </li>
+        <!-- All Employee: ✅ Only for admin -->
+        <?php if ($userRole === 'admin'): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('allemployee') ?>">
+              <span class="menu-title">All Employee</span>
+              <i class="menu-icon fa fa-vcard"></i>
+            </a>
+          </li>
+        <?php endif; ?>
 
-        <!-- Upload Inventory Link -->
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('upload_inventory') ?>">
-            <span class="menu-title">Upload Inventory</span>
-            <i class="mdi mdi-upload menu-icon"></i>
-          </a>
-        </li>
+        <!-- Inventory List: ✅ For admin and customer -->
+        <?php if (in_array($userRole, ['admin', 'customer'])): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('inventorylist') ?>">
+              <span class="menu-title">Inventory List</span>
+              <i class="mdi mdi-package menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
+
+        <?php if (in_array($userRole, ['admin', 'customer'])): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('inventoryreport') ?>">
+              <span class="menu-title">Inventory Report</span>
+              <i class="mdi mdi-package menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
       </ul>
     </nav>

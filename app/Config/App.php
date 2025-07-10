@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://192.168.0.155/infoSMART'; 
+    public string $baseURL = 'http://192.168.0.155/pinestore'; 
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

@@ -12,7 +12,8 @@ class Login extends BaseController
 
         if ($userRole === 'admin') {
             return view('templates/header')
-                . view('dashboard_admin') // create this file
+                . view('templates/sidebar')
+                . view('dashboard_admin') // ✅ Make sure this view exists
                 . view('templates/htmlclose');
         } elseif ($userRole === 'manager') {
             return redirect()->to('/customers');
@@ -23,28 +24,40 @@ class Login extends BaseController
         }
     }
 
-
     public function login()
     {
         $email = trim($this->request->getPost('email'));
         $password = $this->request->getPost('password');
 
         $model = new UserModel();
-
-        // Case-insensitive email match
         $user = $model->where('LOWER(email)', strtolower($email))->first();
 
         if ($user) {
             $hashedPassword = $user['password'];
 
             if (crypt($password, $hashedPassword) === $hashedPassword) {
-                // Set session
-                session()->set('user_id', $user['user_id']);
-                session()->set('user_email', $user['email']);
-                $name = session()->set('user_name', $user['name']); // 👈 Store user name here
+                // ✅ Set all required session variables
+                session()->set([
+                    'user_id'    => $user['user_id'],
+                    'user_email' => $user['email'],
+                    'user_name'  => $user['name'],
+                    'user_role'  => $user['user_role'],
+                    'assign_location' => $user['assign_location'],
+                ]);
 
                 session()->setFlashdata('success', 'Login successful!');
-                return redirect()->to('/dashboard', $name);
+
+                // ✅ Role-based redirection
+                $role = $user['user_role'];
+                if ($role === 'admin') {
+                    return redirect()->to('/dashboard');
+                } elseif ($role === 'manager') {
+                    return redirect()->to('/dashboard');
+                } elseif ($role === 'customer') {
+                    return redirect()->to('/inventorylist');
+                } else {
+                    return redirect()->to('/')->with('error', 'Invalid role.');
+                }
             } else {
                 return redirect()->back()->with('error', 'Incorrect password.');
             }
@@ -52,7 +65,6 @@ class Login extends BaseController
             return redirect()->back()->with('error', 'Invalid email.');
         }
     }
-
 
     public function logout()
     {

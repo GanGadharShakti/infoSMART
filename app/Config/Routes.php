@@ -7,7 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::login'); // Default login page
 $routes->get('/logout', 'Home::logout');
-$routes->get('/dashboard', 'Home::index'); // Dashboard
+// $routes->get('/dashboard', 'Home::index'); // Dashboard
+$routes->get('/dashboard', 'Home::index', ['filter' => 'role:admin,manager']);
 $routes->post('login', 'Login::login');
 $routes->get('/userdetails', 'Home::index');
 $routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1'); // Accept page number as parameter
@@ -24,19 +25,32 @@ $routes->get('warehouses', 'Home::getWarehouses');
 $routes->post('register/checkUnique', 'Home::checkUnique');
 // $routes->get('/employee', 'Allemployee::allemployee');
 // $routes->get('allemployee/list', 'Allemployee::allemployee');
-$routes->get('allemployee', 'Allemployee::index');               // Show user list
-$routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1');      // Show edit form
-$routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1'); // Handle form submit
-$routes->post('/allemployee/delete', 'Allemployee::delete');           // Handle AJAX delete
+// $routes->get('allemployee', 'Allemployee::index');               // Show user list
+// $routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1');      // Show edit form
+// $routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1'); // Handle form submit
+// $routes->post('/allemployee/delete', 'Allemployee::delete');           // Handle AJAX delete
 
 
 
+$routes->get('allemployee', 'Allemployee::index', ['filter' => 'role:admin']);
+$routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1', ['filter' => 'role:admin']);
+$routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1', ['filter' => 'role:admin']);
+$routes->post('/allemployee/delete', 'Allemployee::delete', ['filter' => 'role:admin']);
 
 
 
 
 // // Home pages 
 $routes->get('/table', 'Home::table');
-$routes->get('/customers', 'Home::customers');
+// $routes->get('/customers', 'Home::customers');
+$routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']);
+
 $routes->get('/upload_inventory', 'Home::upload_inventory');
-$routes->get('/inventorylist', 'Home::inventorylist');
+// $routes->get('/inventorylist', 'Home::inventorylist');
+// ✅ Inventory List — Only for admin and customer
+$routes->get('/inventorylist', 'Home::inventorylist', ['filter' => 'role:admin,customer']);
+$routes->get('/inventoryreport', 'Home::inventory_report', ['filter' => 'role:admin,customer']);
+
+// ✅ Protect other sensitive pages if needed
+$routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1', ['filter' => 'role:admin']);
+$routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1', ['filter' => 'role:admin']);

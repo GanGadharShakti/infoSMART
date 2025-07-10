@@ -38,22 +38,55 @@ class Home extends BaseController
     }
 
 
-    public function fetchLeads($page = 1)
-    {
-        $model = new \App\Models\PineInfoLeadModel(); // Your updated model
+    // public function fetchLeads($page = 1)
+    // {
+    //     $model = new \App\Models\PineInfoLeadModel(); // Your updated model
 
-        $perPage = 10;
-        $offset = ($page - 1) * $perPage;
+    //     $perPage = 10;
+    //     $offset = ($page - 1) * $perPage;
 
-        $leads = $model->getLeadsWithPagination($perPage, $offset);
-        $totalLeads = $model->countAllLeads();
-        $totalPages = ceil($totalLeads / $perPage);
+    //     $leads = $model->getLeadsWithPagination($perPage, $offset);
+    //     $totalLeads = $model->countAllLeads();
+    //     $totalPages = ceil($totalLeads / $perPage);
 
-        return $this->response->setJSON([
-            'leads' => $leads,
-            'totalPages' => $totalPages
-        ]);
+    //     return $this->response->setJSON([
+    //         'leads' => $leads,
+    //         'totalPages' => $totalPages
+    //     ]);
+    // }
+
+
+
+
+    // ===========================================
+public function fetchLeads($page = 1)
+{
+    $model = new \App\Models\PineInfoLeadModel();
+
+    $perPage = 10;
+    $offset = ($page - 1) * $perPage;
+
+    $userRole = session()->get('user_role');
+    $assignedLocation = session()->get('assign_location');
+
+    // Base query: only order leads
+    $query = $model->where('spanco', 'order');
+
+    // Role-specific filter
+    if ($userRole === 'manager') {
+        $query = $query->where('moving_to', $assignedLocation);
     }
+
+    // Get total and paginated data
+    $totalLeads = $query->countAllResults(false);
+    $leads = $query->orderBy('created_at', 'desc')->findAll($perPage, $offset);
+
+    return $this->response->setJSON([
+        'leads' => $leads,
+        'totalPages' => ceil($totalLeads / $perPage)
+    ]);
+}
+
 
 
 
@@ -61,7 +94,7 @@ class Home extends BaseController
     // public function inventory()
     // {
     //     // redirect('/invetory_Page');
-    // }
+    // }0
     public function UserDeatails()
     {
 
@@ -143,6 +176,10 @@ class Home extends BaseController
     public function upload_inventory()
     {
         return view('templates/header') . view('templates/sidebar') . view('Home/upload_inventory') . view('templates/htmlclose');
+    }
+    public function inventory_report()
+    {
+        return view('templates/header') . view('templates/sidebar') . view('Home/inventory_report') . view('templates/htmlclose');
     }
 
 
