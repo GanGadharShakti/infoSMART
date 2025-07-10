@@ -86,7 +86,7 @@
       <ul class="nav">
 
         <!-- Dashboard: ✅ Only for admin -->
-        <?php if (in_array($userRole, ['admin', 'manager'])): ?>
+        <?php if (in_array($userRole, ['admin'])): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('dashboard') ?>">
               <span class="menu-title">Dashboard</span>

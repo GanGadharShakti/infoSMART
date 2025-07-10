@@ -83,135 +83,135 @@
                             <table id="dataTable1" class="display table table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Action</th>
                                         <th>No.</th>
                                         <th>Lead Id</th>
                                         <th>Customer Name</th>
                                         <th>Move Size</th>
                                         <th>Home Size</th>
                                         <th>Source</th>
-                                        <th>Action</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dataBody1">
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1001"></i></td>
                                         <td>1</td>
                                         <td>LD1001</td>
                                         <td>John Doe</td>
                                         <td>05 March 2025</td>
                                         <td>3BHK</td>
                                         <td>+1 234 567 890</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1001"></i></td>
                                         <td>New</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1002"></i></td>
                                         <td>2</td>
                                         <td>LD1002</td>
                                         <td>Jane Smith</td>
                                         <td>06 March 2025</td>
                                         <td>2BHK</td>
                                         <td>+1 987 654 321</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1002"></i></td>
                                         <td>Follow-up</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1003"></i></td>
                                         <td>3</td>
                                         <td>LD1003</td>
                                         <td>Robert Brown</td>
                                         <td>07 March 2025</td>
                                         <td>4BHK</td>
                                         <td>+1 456 789 012</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1003"></i></td>
                                         <td>Confirmed</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1004"></i></td>
                                         <td>4</td>
                                         <td>LD1004</td>
                                         <td>Emily Johnson</td>
                                         <td>08 March 2025</td>
                                         <td>1BHK</td>
                                         <td>+1 321 654 987</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1004"></i></td>
                                         <td>Pending</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1005"></i></td>
                                         <td>5</td>
                                         <td>LD1005</td>
                                         <td>Chris Wilson</td>
                                         <td>09 March 2025</td>
                                         <td>2BHK</td>
                                         <td>+1 147 258 369</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1005"></i></td>
                                         <td>Cancelled</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1006"></i></td>
                                         <td>6</td>
                                         <td>LD1006</td>
                                         <td>Olivia Taylor</td>
                                         <td>10 March 2025</td>
                                         <td>3BHK</td>
                                         <td>+1 963 852 741</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1006"></i></td>
                                         <td>Completed</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1007"></i></td>
                                         <td>7</td>
                                         <td>LD1007</td>
                                         <td>Daniel Garcia</td>
                                         <td>11 March 2025</td>
                                         <td>4BHK</td>
                                         <td>+1 753 159 852</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1007"></i></td>
                                         <td>New</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1008"></i></td>
                                         <td>8</td>
                                         <td>LD1008</td>
                                         <td>Ella Martinez</td>
                                         <td>12 March 2025</td>
                                         <td>2BHK</td>
                                         <td>+1 789 456 123</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1008"></i></td>
                                         <td>Follow-up</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1009"></i></td>
                                         <td>9</td>
                                         <td>LD1009</td>
                                         <td>Jack Thomas</td>
                                         <td>13 March 2025</td>
                                         <td>1BHK</td>
                                         <td>+1 852 456 741</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1009"></i></td>
                                         <td>Confirmed</td>
                                     </tr>
                                     <tr>
+                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
+                                                data-bs-toggle="modal" data-bs-target="#actionModal"
+                                                data-id="LD1010"></i></td>
                                         <td>10</td>
                                         <td>LD1010</td>
                                         <td>Sophia Clark</td>
                                         <td>14 March 2025</td>
                                         <td>3BHK</td>
                                         <td>+1 654 321 987</td>
-                                        <td><i class="fa fa-hand-o-up fa-2x ele-color action-icon c-p"
-                                                data-bs-toggle="modal" data-bs-target="#actionModal"
-                                                data-id="LD1010"></i></td>
                                         <td>Pending</td>
                                     </tr>
                                 </tbody>
@@ -686,3 +686,8 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const sessionData = <?= json_encode(session()->get()); ?>;
+        console.log("Session Data:", sessionData);
+    </script>

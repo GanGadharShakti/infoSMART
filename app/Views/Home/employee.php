@@ -9,20 +9,26 @@
             <table id="dataTable" class="display table table-hover">
                 <thead>
                     <tr>
+                        <th>Action</th> <!-- NEW COLUMN -->
                         <th>ID</th>
-                        <th >Username</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Address</th>
                         <th>User Role</th>
                         <th>Assign Location</th>
                         <th>Status</th>
-                        <th>Action</th> <!-- NEW COLUMN -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user): ?>
                         <tr>
 
+                            <td class="text-center">
+                                <i class="fa fa-edit fa-2x ele-color c-p user-action-icon"
+                                    data-id="<?= $user['user_id'] ?>"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#userActionModal"></i>
+                            </td>
                             <td><?= esc($user['user_id']) ?></td>
                             <td><?= esc($user['name']) ?></td>
                             <td><?= esc($user['email']) ?></td>
@@ -30,12 +36,6 @@
                             <td><?= esc($user['user_role']) ?></td>
                             <td><?= esc($user['assign_location']) ?></td>
                             <td><?= esc($user['status']) ?></td>
-                            <td class="text-center">
-                                <i class="fa fa-edit fa-2x ele-color c-p user-action-icon"
-                                    data-id="<?= $user['user_id'] ?>"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#userActionModal"></i>
-                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -16,6 +16,8 @@ class PineInfoLeadModel extends Model
         'customer_name',
         'customer_mobile',
         'optional_mobile',
+        'cust_wr_email',
+        'cust_wr_pass ',
         'customer_email',
         'campaign',
         'service_type',

@@ -7,8 +7,9 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::login'); // Default login page
 $routes->get('/logout', 'Home::logout');
+$routes->get('/cus_logout', 'Home::customerlogout');
 // $routes->get('/dashboard', 'Home::index'); // Dashboard
-$routes->get('/dashboard', 'Home::index', ['filter' => 'role:admin,manager']);
+$routes->get('/dashboard', 'Home::index', ['filter' => 'role:admin']);
 $routes->post('login', 'Login::login');
 $routes->get('/userdetails', 'Home::index');
 $routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1'); // Accept page number as parameter
@@ -20,6 +21,17 @@ $routes->post('register/save', 'Home::save');
 $routes->get('warehouse_register', 'Home::warehouse_register');
 $routes->get('warehouses', 'Home::getWarehouses');
 
+
+
+
+// customer Login
+
+$routes->get('/cus_login', 'Login::loginView');
+$routes->post('/customerlogin', 'Login::customerlogin');
+$routes->get('/customerlogout', 'Login::logout');
+
+
+// customer Login close
 
 // AJAX email/phone uniqueness check
 $routes->post('register/checkUnique', 'Home::checkUnique');
