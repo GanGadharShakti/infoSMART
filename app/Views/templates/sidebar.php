@@ -126,6 +126,17 @@
         <?php endif; ?>
 
 
+        <!-- Inventory List: ✅ For admin and customer -->
+        <?php if (in_array($userRole, ['admin'])): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('barcode') ?>">
+              <span class="menu-title">Barcode genrator</span>
+                <i class="fa fa-qrcode  mdi-package menu-icon "></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
+
         <?php if (in_array($userRole, ['admin', 'customer'])): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('inventoryreport') ?>">

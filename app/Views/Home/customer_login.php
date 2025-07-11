@@ -79,6 +79,7 @@
     .error {
       color: red;
       font-size: 14px;
+      
       margin-bottom: 10px;
     }
   </style>

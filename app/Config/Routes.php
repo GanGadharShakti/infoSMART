@@ -49,7 +49,16 @@ $routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1', ['filter' => 'r
 $routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1', ['filter' => 'role:admin']);
 $routes->post('/allemployee/delete', 'Allemployee::delete', ['filter' => 'role:admin']);
 
+// barcode genrator
 
+
+$routes->get('barcode', 'BarcodeController::index');
+$routes->post('barcode/generate', 'BarcodeController::generate');
+$routes->get('barcode/list', 'BarcodeController::list');
+
+
+
+// ====================================================
 
 
 // // Home pages 
