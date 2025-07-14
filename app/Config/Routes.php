@@ -69,7 +69,7 @@ $routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']
 $routes->get('/upload_inventory', 'Home::upload_inventory');
 // $routes->get('/inventorylist', 'Home::inventorylist');
 // ✅ Inventory List — Only for admin and customer
-$routes->get('/inventorylist', 'Home::inventorylist', ['filter' => 'role:admin,customer']);
+$routes->get('/inventorylist', 'Login::customerInventory', ['filter' => 'role:admin,customer']);
 $routes->get('/inventoryreport', 'Home::inventory_report', ['filter' => 'role:admin,customer']);
 
 // ✅ Protect other sensitive pages if needed

@@ -21,7 +21,7 @@
                                         <th>#</th>
                                         <th>Rack Product ID</th>
                                         <th>Barcode Value</th>
-                                        <th>Barcode Image</th>
+                                        <th>Barcode</th>
                                         <th>Generated At</th>
                                     </tr>
                                 </thead>
@@ -34,7 +34,13 @@
                                                 <td><?= esc($barcode['barcode_value']) ?></td>
                                                 <td>
                                                     <?php if (!empty($barcode['qr_image_path'])): ?>
-                                                        <img src="<?= base_url($barcode['qr_image_path']) ?>" height="60" alt="barcode">
+                                                        <img src="<?= base_url($barcode['qr_image_path']) ?>"
+                                                             alt="Barcode"
+                                                             class="img-fluid border p-1 rounded"
+                                                             style="width: 100px; object-fit: contain; cursor: pointer;"
+                                                             data-bs-toggle="modal"
+                                                             data-bs-target="#barcodeModal"
+                                                             data-img="<?= base_url($barcode['qr_image_path']) ?>">
                                                     <?php else: ?>
                                                         <span class="text-muted">No Image</span>
                                                     <?php endif; ?>
@@ -50,4 +56,33 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Modal for barcode preview -->
+                        <div class="modal fade" id="barcodeModal" tabindex="-1" aria-labelledby="barcodeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="barcodeModalLabel">Barcode Preview</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="" alt="Full Barcode" id="barcodePreview" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Script for modal preview -->
+                        <script>
+                            const modalImg = document.getElementById('barcodePreview');
+                            const thumbs = document.querySelectorAll('img[data-bs-toggle="modal"]');
+
+                            thumbs.forEach(img => {
+                                img.addEventListener('click', function () {
+                                    const fullSrc = this.getAttribute('data-img');
+                                    modalImg.setAttribute('src', fullSrc);
+                                });
+                            });
+                        </script>
+
                     </div>

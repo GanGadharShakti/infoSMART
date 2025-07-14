@@ -83,7 +83,7 @@ class Login extends BaseController
             if (trim($customer['cust_wr_pass']) === $password) {
                 // ✅ Set session with proper keys to work with sidebar logic
                 $sessionData = [
-                    'user_id'        => $customer['id'],
+                    'customer_id'        => $customer['id'],
                     'user_name'      => $customer['customer_name'],
                     'customer_name'  => $customer['customer_name'],
                     'user_role'      => 'customer', // this is very important
@@ -99,6 +99,31 @@ class Login extends BaseController
             return redirect()->back()->with('error', 'Email not found');
         }
     }
+
+
+    public function customerInventory()
+    {
+        $customerId = session()->get('customer_id'); // This is pine_upload_inventory.id
+
+        if (!$customerId) {
+            return redirect()->to('/cus_login')->with('error', 'Please login first.');
+        }
+
+        // Load model
+        $inventoryModel = new \App\Models\CustomerInventoryModel();
+
+        // Find customer inventory where upload_inventory_id matches customer ID
+        $data['inventories'] = $inventoryModel
+            ->where('upload_inventory_id', $customerId)
+            ->findAll();
+
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Home/inventory_items', $data)
+            . view('templates/htmlclose');
+    }
+
+
 
 
     public function customerlogout()

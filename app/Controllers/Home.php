@@ -59,33 +59,33 @@ class Home extends BaseController
 
 
     // ===========================================
-public function fetchLeads($page = 1)
-{
-    $model = new \App\Models\PineInfoLeadModel();
+    public function fetchLeads($page = 1)
+    {
+        $model = new \App\Models\PineInfoLeadModel();
 
-    $perPage = 10;
-    $offset = ($page - 1) * $perPage;
+        $perPage = 10;
+        $offset = ($page - 1) * $perPage;
 
-    $userRole = session()->get('user_role');
-    $assignedLocation = session()->get('assign_location');
+        $userRole = session()->get('user_role');
+        $assignedLocation = session()->get('assign_location');
 
-    // Base query: only order leads
-    $query = $model->where('spanco', 'order');
+        // Base query: only order leads
+        $query = $model->where('spanco', 'order');
 
-    // Role-specific filter
-    if ($userRole === 'manager') {
-        $query = $query->where('moving_to', $assignedLocation);
+        // Role-specific filter
+        if ($userRole === 'manager') {
+            $query = $query->where('moving_to', $assignedLocation);
+        }
+
+        // Get total and paginated data
+        $totalLeads = $query->countAllResults(false);
+        $leads = $query->orderBy('created_at', 'desc')->findAll($perPage, $offset);
+
+        return $this->response->setJSON([
+            'leads' => $leads,
+            'totalPages' => ceil($totalLeads / $perPage)
+        ]);
     }
-
-    // Get total and paginated data
-    $totalLeads = $query->countAllResults(false);
-    $leads = $query->orderBy('created_at', 'desc')->findAll($perPage, $offset);
-
-    return $this->response->setJSON([
-        'leads' => $leads,
-        'totalPages' => ceil($totalLeads / $perPage)
-    ]);
-}
 
 
 
@@ -189,8 +189,9 @@ public function fetchLeads($page = 1)
         $warehouseModel = new WarehouseModel();
         return $this->response->setJSON($warehouseModel->findAll());
     }
-    public function inventorylist()
-    {
-        return view('templates/header') . view('templates/sidebar') . view('Home/inventory_items') . view('templates/htmlclose');
-    }
+    // public function inventorylist()
+    // {
+    //     return view('templates/header') . view('templates/sidebar') . view('Home/inventory_items') . view('templates/htmlclose');
+    // }
+    
 }

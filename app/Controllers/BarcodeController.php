@@ -24,33 +24,75 @@ class BarcodeController extends BaseController
             return redirect()->back()->with('error', 'Fields required.');
         }
 
-        // Generate Barcode using PNG (GD required)
-        $generator = new BarcodeGeneratorPNG();
+        // Generate barcode
+        $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
         $barcodeImage = $generator->getBarcode($barcodeValue, $generator::TYPE_CODE_128);
 
-        // Save file to public/barcodes/
+        // Convert to image
+        $barcodeGD = imagecreatefromstring($barcodeImage);
+
+        // Desired final size (in pixels)
+        $finalWidth = 192; // 2 inches at 96 DPI
+        $finalHeight = 96; // 1 inch at 96 DPI
+
+        // Add text space
+        $fontSize = 2; // smaller font to fit
+        $textHeight = imagefontheight($fontSize);
+        $barcodeAreaHeight = $finalHeight - $textHeight;
+
+        // Create final canvas
+        $canvas = imagecreatetruecolor($finalWidth, $finalHeight);
+        $white = imagecolorallocate($canvas, 255, 255, 255);
+        $black = imagecolorallocate($canvas, 0, 0, 0);
+        imagefill($canvas, 0, 0, $white);
+
+        // Resize original barcode proportionally
+        imagecopyresampled(
+            $canvas,
+            $barcodeGD,
+            0,
+            0,                 // dest x,y
+            0,
+            0,                 // src x,y
+            $finalWidth,
+            $barcodeAreaHeight,    // dest w,h
+            imagesx($barcodeGD),
+            imagesy($barcodeGD)  // src w,h
+        );
+
+        // Add text below barcode
+        $textWidth = imagefontwidth($fontSize) * strlen($barcodeValue);
+        $textX = ($finalWidth - $textWidth) / 2;
+        $textY = $barcodeAreaHeight + 1;
+
+        imagestring($canvas, $fontSize, $textX, $textY, $barcodeValue, $black);
+
+        // Save
         $fileName = $barcodeValue . '_' . time() . '.png';
-        $publicDir = FCPATH . 'barcodes/';
-        $relativePath = 'barcodes/' . $fileName;
-
-        // Create the barcodes directory if it doesn't exist
-        if (!is_dir($publicDir)) {
-            mkdir($publicDir, 0777, true);
+        $savePath = FCPATH . 'barcodes/' . $fileName;
+        if (!is_dir(FCPATH . 'barcodes')) {
+            mkdir(FCPATH . 'barcodes', 0777, true);
         }
-
-        file_put_contents($publicDir . $fileName, $barcodeImage);
-
-        // Save barcode entry to DB
-        $model = new BarcodeModel();
+        imagepng($canvas, $savePath);
+        // Save in DB
+        $model = new \App\Models\BarcodeModel();
         $model->insert([
             'rack_product_id' => $rackId,
             'barcode_value'   => $barcodeValue,
-            'qr_image_path'   => $relativePath, // stored relative to base_url
-            'generated_by'    => 1 // Use session ID if available
+            'qr_image_path'   => 'barcodes/' . $fileName,
+           'generated_by' => session()->get('user_name')
+
         ]);
 
-        return redirect()->to(base_url('barcode/list'))->with('success', 'Barcode generated and saved!');
+        // Cleanup
+        imagedestroy($barcodeGD);
+        imagedestroy($canvas);
+
+        return redirect()->to(base_url('barcode/list'))->with('success', 'Barcode generated with fixed size.');
     }
+
+
+
 
     public function list()
     {

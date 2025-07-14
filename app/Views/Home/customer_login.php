@@ -103,7 +103,7 @@
         <input type="password" name="password" required value="123456" />
       </div>
 
-      <button type="submit" class="btn">Create account</button>
+      <button type="submit" class="btn">Login</button>
     </form>
   </div>
   <div class="right-image">
