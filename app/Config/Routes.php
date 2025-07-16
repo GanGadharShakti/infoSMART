@@ -35,12 +35,6 @@ $routes->get('/customerlogout', 'Login::customerlogout');
 
 // AJAX email/phone uniqueness check
 $routes->post('register/checkUnique', 'Home::checkUnique');
-// $routes->get('/employee', 'Allemployee::allemployee');
-// $routes->get('allemployee/list', 'Allemployee::allemployee');
-// $routes->get('allemployee', 'Allemployee::index');               // Show user list
-// $routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1');      // Show edit form
-// $routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1'); // Handle form submit
-// $routes->post('/allemployee/delete', 'Allemployee::delete');           // Handle AJAX delete
 
 
 
