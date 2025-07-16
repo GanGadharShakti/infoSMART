@@ -18,21 +18,27 @@ class Login extends BaseController
         $user = $model->where('LOWER(email)', strtolower($email))->first();
 
         if ($user) {
+            // ✅ Check if status is inactive before password check
+            if (isset($user['status']) && strtolower($user['status']) !== 'active') {
+                return redirect()->back()->with('error', 'Your account is inactive. Please contact admin.');
+            }
+
             $hashedPassword = $user['password'];
 
             if (crypt($password, $hashedPassword) === $hashedPassword) {
                 // ✅ Set all required session variables
                 session()->set([
-                    'user_id'    => $user['user_id'],
-                    'user_email' => $user['email'],
-                    'user_name'  => $user['name'],
-                    'user_role'  => $user['user_role'],
-                    'assign_location' => $user['assign_location'],
+                    'user_id'          => $user['user_id'],
+                    'user_email'       => $user['email'],
+                    'user_name'        => $user['name'],
+                    'user_role'        => $user['user_role'],
+                    'assign_location'  => $user['assign_location'],
                 ]);
 
                 session()->setFlashdata('success', 'Login successful!');
 
-                $customerislogin =  session()->get('isLoggedIn');
+                $customerislogin = session()->get('isLoggedIn');
+
                 // ✅ Role-based redirection
                 $role = $user['user_role'];
                 if ($role === 'admin') {
@@ -51,6 +57,7 @@ class Login extends BaseController
             return redirect()->back()->with('error', 'Invalid email.');
         }
     }
+
 
     public function logout()
     {
@@ -73,11 +80,11 @@ class Login extends BaseController
     public function customerlogin()
     {
         $session = session();
-        $email = trim($this->request->getPost('email'));
+        $number = trim($this->request->getPost('number'));
         $password = trim($this->request->getPost('password'));
 
         $model = new \App\Models\PineInfoLeadModel();
-        $customer = $model->where('cust_wr_email', $email)->first();
+        $customer = $model->where('customer_number', $number)->first();
 
         if ($customer) {
             if (trim($customer['cust_wr_pass']) === $password) {
@@ -96,7 +103,7 @@ class Login extends BaseController
                 return redirect()->back()->with('error', 'Invalid password');
             }
         } else {
-            return redirect()->back()->with('error', 'Email not found');
+            return redirect()->back()->with('error', 'number not found');
         }
     }
 

@@ -109,7 +109,7 @@
         <?php if ($userRole === 'admin'): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('allemployee') ?>">
-              <span class="menu-title">All Employee</span>
+              <span class="menu-title">Users</span>
               <i class="menu-icon fa fa-vcard"></i>
             </a>
           </li>
@@ -137,11 +137,11 @@
         <?php endif; ?>
 
 
-        <?php if (in_array($userRole, ['admin', 'customer'])): ?>
+        <?php if (in_array($userRole, ['customer'])): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('inventoryreport') ?>">
               <span class="menu-title">Inventory Report</span>
-              <i class="mdi mdi-package menu-icon"></i>
+              <i class="fa fa-edit menu-icon"></i>
             </a>
           </li>
         <?php endif; ?>

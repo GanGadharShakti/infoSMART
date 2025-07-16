@@ -32,9 +32,9 @@ $cards = [
         'color' => 'danger'
     ],
     [
-        'title' => "Today’s Closures",
-        'value' => '45,6334',
-        'icon' => 'mdi-close-circle',
+        'title' => "Total Order",
+        'value' => $totalLeads ?? '0',
+        'icon' => 'mdi-account-multiple-outline',
         'color' => 'info'
     ],
 

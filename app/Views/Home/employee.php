@@ -9,7 +9,6 @@
             <table id="dataTable" class="display table table-hover">
                 <thead>
                     <tr>
-                        <th>Action</th> <!-- NEW COLUMN -->
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
@@ -17,25 +16,24 @@
                         <th>User Role</th>
                         <th>Assign Location</th>
                         <th>Status</th>
+                        <th>Action</th> <!-- NEW COLUMN -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user): ?>
                         <tr>
-
-                            <td class="text-center">
-                                <i class="fa fa-edit fa-2x ele-color c-p user-action-icon"
-                                    data-id="<?= $user['user_id'] ?>"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#userActionModal"></i>
-                            </td>
                             <td><?= esc($user['user_id']) ?></td>
                             <td><?= esc($user['name']) ?></td>
                             <td><?= esc($user['email']) ?></td>
-                            <td><?= esc($user['address']) ?></td>
+                            <td style=" max-width: 200px; white-space: normal;"><?= esc($user['address']) ?></td>
                             <td><?= esc($user['user_role']) ?></td>
                             <td><?= esc($user['assign_location']) ?></td>
                             <td><?= esc($user['status']) ?></td>
+                            <td>
+                                <a href="<?= base_url('allemployee/edit/' . $user['user_id']) ?>">
+                                    <i class="fa fa-edit fa-2x ele-color c-p"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -48,7 +46,7 @@
             </div>
         </div>
 
-        <!-- User Action Modal -->
+        <!-- User Action Modal
         <div class="modal fade" id="userActionModal" tabindex="-1" aria-labelledby="userActionModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -76,5 +74,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <script src="<?= base_url('assets/js/employeupdate.js') ?>"></script>

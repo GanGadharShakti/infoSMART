@@ -23,46 +23,34 @@
       justify-content: center;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background-color: #f5f7fa;
-    }
-
-    .btn {
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      padding: 12px 0;
-      border-radius: 20px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.3s;
-    }
-
-    .btn:hover {
-      background-color: #1e40af;
-    }
-
     .right-image {
       width: 50%;
       background: url('<?= base_url("path-to-image.webp") ?>') no-repeat center center;
       background-size: cover;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
+      overflow: hidden;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 5px 5px;
+      border: none;
+      border-bottom: 1px solid black;
+      outline: none;
     }
 
     .login-header {
@@ -71,15 +59,34 @@
       margin-bottom: 10px;
     }
 
+    .btn {
+      border: 1px solid #04bf9d;
+      /* border: none; */
+      padding: 10px 5px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: #04bf9d;
+
+    }
+
+    .btn:hover {
+      background: #04bf9d;
+      color: white;
+      font-weight: bold;
+      transition: .3s ease-in;
+
+    }
+
     .sub-text {
       color: #555;
       margin-bottom: 30px;
+
     }
 
     .error {
       color: red;
       font-size: 14px;
-      
+
       margin-bottom: 10px;
     }
   </style>
@@ -87,20 +94,21 @@
 
 <body>
   <div class="container">
+    
     <?php if (session()->getFlashdata('error')): ?>
       <div class="error"><?= session()->getFlashdata('error') ?></div>
     <?php endif; ?>
 
     <form action="<?= base_url('customerlogin') ?>" method="post">
-      <h1 >Customer Login  </h1>
+      <h1>User Login </h1>
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" required value="vaibhav7558@gmail.com" />
+        <label>number : </label>
+        <input type="number" name="number" required value="8286080507" />
       </div>
 
       <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" required value="123456" />
+        <label>Password :</label>
+        <input type="password" name="password" required value="1234" />
       </div>
 
       <button type="submit" class="btn">Login</button>

@@ -28,7 +28,7 @@ $routes->get('warehouses', 'Home::getWarehouses');
 
 $routes->get('/cus_login', 'Login::loginView');
 $routes->post('/customerlogin', 'Login::customerlogin');
-$routes->get('/customerlogout', 'Login::logout');
+$routes->get('/customerlogout', 'Login::customerlogout');
 
 
 // customer Login close

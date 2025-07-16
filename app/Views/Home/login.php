@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <div class="div">
         <div class="div-container">
             <div class="div-left">
@@ -19,7 +20,7 @@
 
                 <!-- Flash Error Message -->
                 <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger" style="margin-bottom: 10px;">
+                    <div class="alert alert-danger" style="color:red; margin-bottom: 10px;">
                         <?= session()->getFlashdata('error') ?>
                     </div>
                 <?php endif; ?>
@@ -33,7 +34,7 @@
 
                     <div class="input-block">
                         <label for="password" class="input-label">Password</label>
-                        <input type="password" name="password" id="password" placeholder="Password" autocomplete="off" value="1234" >
+                        <input type="password" name="password" id="password" placeholder="Password" autocomplete="off" value="1234">
                     </div>
 
                     <div class="div-buttons">
