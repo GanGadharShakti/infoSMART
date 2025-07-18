@@ -59,7 +59,6 @@ $routes->get('barcode/list', 'BarcodeController::list');
 $routes->get('/table', 'Home::table');
 // $routes->get('/customers', 'Home::customers');
 $routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']);
-
 $routes->get('/upload_inventory', 'Home::upload_inventory');
 // $routes->get('/inventorylist', 'Home::inventorylist');
 // ✅ Inventory List — Only for admin and customer
@@ -69,3 +68,6 @@ $routes->get('/inventoryreport', 'Home::inventory_report', ['filter' => 'role:ad
 // ✅ Protect other sensitive pages if needed
 $routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1', ['filter' => 'role:admin']);
 $routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1', ['filter' => 'role:admin']);
+
+
+$routes->get('inventory/view/(:num)', 'Home::viewInventory/$1');

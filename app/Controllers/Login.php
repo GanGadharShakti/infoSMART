@@ -8,56 +8,53 @@ use App\Models\PineInfoLeadModel;
 class Login extends BaseController
 {
 
-
     public function login()
     {
-        $email = trim($this->request->getPost('email'));
-        $password = $this->request->getPost('password');
+        $session = session();
+        $request = \Config\Services::request();
 
-        $model = new UserModel();
+        $email = trim($request->getPost('email'));
+        $password = trim($request->getPost('password'));
+
+        $model = new \App\Models\UserModel();
         $user = $model->where('LOWER(email)', strtolower($email))->first();
 
         if ($user) {
-            // ✅ Check if status is inactive before password check
+            // Check if user is active
             if (isset($user['status']) && strtolower($user['status']) !== 'active') {
-                return redirect()->back()->with('error', 'Your account is inactive. Please contact admin.');
+                return redirect()->to('/')->withInput()->with('error', 'Your account is inactive. Please contact admin.');
             }
 
-            $hashedPassword = $user['password'];
-
-            if (crypt($password, $hashedPassword) === $hashedPassword) {
-                // ✅ Set all required session variables
-                session()->set([
+            // Check password
+            if (crypt($password, $user['password']) === $user['password']) {
+                // Set session
+                $session->set([
                     'user_id'          => $user['user_id'],
                     'user_email'       => $user['email'],
                     'user_name'        => $user['name'],
                     'user_role'        => $user['user_role'],
                     'assign_location'  => $user['assign_location'],
+                    'isLoggedIn'       => true,
                 ]);
 
-                session()->setFlashdata('success', 'Login successful!');
-
-                $customerislogin = session()->get('isLoggedIn');
-
-                // ✅ Role-based redirection
-                $role = $user['user_role'];
-                if ($role === 'admin') {
+                // Role-based redirect
+                if ($user['user_role'] === 'admin') {
                     return redirect()->to('/dashboard');
-                } elseif ($role === 'manager') {
+                } elseif ($user['user_role'] === 'manager') {
                     return redirect()->to('/customers');
-                } elseif ($customerislogin) {
+                } elseif ($user['user_role'] === 'customer') {
                     return redirect()->to('/inventorylist');
                 } else {
-                    return redirect()->to('/')->with('error', 'Invalid role.');
+                    $session->destroy();
+                    return redirect()->to('/')->with('error', 'Unauthorized role access.');
                 }
             } else {
-                return redirect()->back()->with('error', 'Incorrect password.');
+                return redirect()->to('/')->withInput()->with('error', 'Incorrect password.');
             }
         } else {
-            return redirect()->back()->with('error', 'Invalid email.');
+            return redirect()->to('/')->withInput()->with('error', 'Invalid email address.');
         }
     }
-
 
     public function logout()
     {
@@ -65,12 +62,7 @@ class Login extends BaseController
         return redirect()->to('/')->with('success', 'You have been logged out.');
     }
 
-
-
-
     // customer login
-
-
 
     public function loginView()
     {
@@ -84,7 +76,7 @@ class Login extends BaseController
         $password = trim($this->request->getPost('password'));
 
         $model = new \App\Models\PineInfoLeadModel();
-        $customer = $model->where('customer_number', $number)->first();
+        $customer = $model->where('customer_mobile', $number)->first();
 
         if ($customer) {
             if (trim($customer['cust_wr_pass']) === $password) {
@@ -100,10 +92,10 @@ class Login extends BaseController
 
                 return redirect()->to('/inventorylist');
             } else {
-                return redirect()->back()->with('error', 'Invalid password');
+                return redirect()->to('/')->with('error', 'Invalid password');
             }
         } else {
-            return redirect()->back()->with('error', 'number not found');
+            return redirect()->to('/')->with('error', 'number not found');
         }
     }
 
@@ -130,15 +122,11 @@ class Login extends BaseController
             . view('templates/htmlclose');
     }
 
-
-
-
     public function customerlogout()
     {
         session()->destroy(); // Destroy session
         return redirect()->to('/cur_login')->with('success', 'You have been logged out.');
     }
-
 
     public function index()
     {

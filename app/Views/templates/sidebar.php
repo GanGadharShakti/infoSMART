@@ -26,9 +26,14 @@
             <div class="nav-profile-img">
               <div style="padding:0 5px; color:black; font-size:20px; font-weight:bold; border-radius:100%  ; background-color:aqua; display:flex; justify-content:center; align-item:center"></div>
 
-              <img src="<?= base_url() ?>assets/images/faces/face1.jpg" alt="image">
-              <span class="availability-status online"></span>
+              <!-- <img src="<?= base_url() ?>assets/images/faces/face1.jpg" alt="image"> -->
+              <span style="padding:10px 15px ; font-weight:bold; background-color:#04bf9d; color:white;border-radius:100%">
+                <?php $userName = session()->get('user_name');
+                echo $userName ? esc($userName[0]) : "<?=>";
+                ?>
+              </span>
             </div>
+
             <div class="nav-profile-text">
               <p class="mb-1 text-black">
                 <?php
@@ -146,5 +151,14 @@
           </li>
         <?php endif; ?>
 
+        <!-- Warhouses: ✅ Only for admin -->
+        <?php if ($userRole === 'admin'): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('allemployee') ?>">
+              <span class="menu-title">Warehouse</span>
+              <i class="menu-icon fa fa-vcard"></i>
+            </a>
+          </li>
+        <?php endif; ?>
       </ul>
     </nav>

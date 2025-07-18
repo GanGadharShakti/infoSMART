@@ -133,3 +133,44 @@ $(document).ready(function () {
   // Initial load
   fetchLeads(currentPage);
 });
+
+// ===================
+
+// When action icon is clicked
+$(document).on("click", ".action-icon", function () {
+  const leadId = $(this).data("id");
+  // const leadId = $(this).data("id");
+  console.log("Clicked Lead ID:", leadId);
+  $("#customerDetails").html("Loading...");
+
+  $.ajax({
+    url: `${base_url}leads/customer/${leadId}`,
+    type: "GET",
+    dataType: "json",
+    success: function (response) {
+      if (response.status === "success") {
+        const c = response.customer;
+        const content = `
+          <p><strong>Name:</strong> ${c.name}</p>
+          <p><strong>Email:</strong> ${c.email}</p>
+          <p><strong>Phone:</strong> ${c.phone}</p>
+          <p><strong>Address:</strong> ${c.address || "-"}</p>
+          <p><strong>City:</strong> ${c.city || "-"}</p>
+        `;
+        $("#customerDetails").html(content);
+      } else {
+        $("#customerDetails").html("Customer not found.");
+      }
+    },
+    error: function () {
+      $("#customerDetails").html("Error fetching customer.");
+    }
+  });
+});
+$(document).on("click", ".action-icon", function () {
+  const leadId = $(this).data("id");
+  console.log("Redirecting with Lead ID:", leadId);
+
+  // Redirect to inventory viewing page with the lead ID
+  window.location.href = `${base_url}inventory/view/${leadId}`;
+});

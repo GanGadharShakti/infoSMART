@@ -94,7 +94,7 @@
 
 <body>
   <div class="container">
-    
+
     <?php if (session()->getFlashdata('error')): ?>
       <div class="error"><?= session()->getFlashdata('error') ?></div>
     <?php endif; ?>
@@ -102,7 +102,7 @@
     <form action="<?= base_url('customerlogin') ?>" method="post">
       <h1>User Login </h1>
       <div class="form-group">
-        <label>number : </label>
+        <label>Number : </label>
         <input type="number" name="number" required value="8286080507" />
       </div>
 

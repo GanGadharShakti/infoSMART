@@ -61,12 +61,12 @@ class Home extends BaseController
         // Base query
         $query = $model->where('spanco', 'order');
 
-        // Role-specific filter
+        // Role-based filter
         if ($userRole === 'manager') {
             $query = $query->where('moving_to', $assignedLocation);
         }
 
-        // Apply global search
+        // Global search
         if (!empty($globalSearch)) {
             $query->groupStart()
                 ->like('customer_name', $globalSearch)
@@ -75,13 +75,13 @@ class Home extends BaseController
                 ->groupEnd();
         }
 
-        // Apply date range filter
+        // Date filter
         if (!empty($fromDate) && !empty($toDate)) {
             $query->where('DATE(created_at) >=', $fromDate)
                 ->where('DATE(created_at) <=', $toDate);
         }
 
-        // Apply sortBy quick filters
+        // Quick sort filters
         if (!empty($sortBy)) {
             if ($sortBy === 'Today') {
                 $query->where('DATE(created_at)', date('Y-m-d'));
@@ -94,22 +94,39 @@ class Home extends BaseController
             }
         }
 
-        // Table-specific search (optional input)
+        // Table-specific search
         if (!empty($tableSearch)) {
             $query->like('customer_name', $tableSearch);
         }
 
-        // Get total count (don't reset query)
+        // Total count (important to call before findAll)
         $totalLeads = $query->countAllResults(false);
 
-        // Final paginated and ordered result
+        // Final result
         $leads = $query->orderBy('created_at', 'desc')->findAll($perPage, $offset);
 
         return $this->response->setJSON([
             'leads' => $leads,
+            'totalLeads' => $totalLeads,
             'totalPages' => ceil($totalLeads / $perPage)
         ]);
     }
+
+
+    public function viewInventory($leadId)
+    {
+        $db = \Config\Database::connect();
+
+        // Get inventory matching this upload_inventory_id (lead ID)
+        $builder = $db->table('customer_inventory');
+        $builder->where('upload_inventory_id', $leadId);
+        $query = $builder->get();
+
+        $inventory = $query->getResult();
+
+        return view('templates/header') . view('templates/sidebar') . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId]) . view('templates/htmlclose');
+    }
+
 
     public function UserDeatails()
     {
@@ -219,4 +236,30 @@ class Home extends BaseController
         return $this->response->setJSON($warehouseModel->findAll());
     }
 
+    public function getInventorys($leadId)
+    {
+        $leadModel = new \App\Models\PineInfoLeadModel();
+        $inventoryModel = new \App\Models\CustomerInventoryModel();
+
+        // Check if lead exists
+        $lead = $leadModel->find($leadId);
+        if (!$lead) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Lead not found'
+            ]);
+        }
+
+        // Fetch related inventory
+        $inventory = $inventoryModel
+            ->where('upload_inventory_id', $leadId)
+            ->findAll();
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'inventory' => $inventory
+        ]);
+    }
+
+    // public function customerforadmin
 }
