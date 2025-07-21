@@ -41,7 +41,7 @@
                                     <select name="assign_location" class="form-select">
                                         <option value="">Select Warehouse</option>
                                         <?php foreach ($warehouses as $wh): ?>
-                                            <option value="<?= esc($wh['city']) ?>"><?= esc($wh['city']) ?></option>
+                                            <option value="<?= esc($wh['city_name']) ?>"><?= esc($wh['city_name']) ?></option>
 
                                         <?php endforeach; ?>
                                     </select>

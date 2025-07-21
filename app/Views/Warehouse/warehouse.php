@@ -11,18 +11,18 @@
                     <tr>
                         <th>ID</th>
                         <th>State</th>
-                        <th>City</th>
+                        <th>slug</th>
                         <th>Action</th> <!-- Action Column -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($warehouses as $warehouse): ?>
                         <tr>
-                            <td><?= esc($warehouse['warehouse_id']) ?></td>
-                            <td><?= esc($warehouse['state']) ?></td>
-                            <td><?= esc($warehouse['city']) ?></td>
+                            <td><?= esc($warehouse['id']) ?></td>
+                            <td><?= esc($warehouse['city_name']) ?></td>
+                            <td><?= esc($warehouse['slug']) ?></td>
                             <td>
-                                <a href="<?= base_url('warehouse/edit/' . $warehouse['warehouse_id']) ?>">
+                                <a href="<?= base_url('warehouse/edit/' . $warehouse['id']) ?>">
                                     <i class="fa fa-edit fa-2x ele-color c-p"></i>
                                 </a>
                             </td>
