@@ -70,14 +70,19 @@ $routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1', ['filter' => 'role:adm
 $routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1', ['filter' => 'role:admin']);
 
 
-$routes->get('inventory/view/(:num)', 'Home::viewInventory/$1');
+// $routes->get('inventory/view/(:num)', 'Home::viewInventory/$1');
+$routes->get('/inventory/view/(:num)', 'Home::viewInventory/$1');
+$routes->post('/inventory/add', 'Home::addInventory');
+$routes->post('inventory/update/(:num)', 'Home::updateInventory/$1');
+
+$routes->get('/inventory/delete/(:num)', 'Home::deleteInventory/$1');
 
 
 
-// warehose
 $routes->get('warehouse', 'WarehouseController::index');
 $routes->get('warehouse/create', 'WarehouseController::create');
 $routes->post('warehouse/store', 'WarehouseController::store');
 $routes->get('warehouse/edit/(:num)', 'WarehouseController::edit/$1');
 $routes->post('warehouse/update/(:num)', 'WarehouseController::update/$1');
 $routes->get('warehouse/delete/(:num)', 'WarehouseController::delete/$1');
+$routes->get('warehouse/view/(:num)', 'WarehouseController::view/$1'); // View warehouse locations by city_id

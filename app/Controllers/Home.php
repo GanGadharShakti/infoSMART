@@ -113,18 +113,94 @@ class Home extends BaseController
     }
 
 
+    // public function viewInventory($leadId)
+    // {
+    //     $db = \Config\Database::connect();
+
+    //     // Get inventory matching this upload_inventory_id (lead ID)
+    //     $builder = $db->table('customer_inventory');
+    //     $builder->where('upload_inventory_id', $leadId);
+    //     $query = $builder->get();
+
+    //     $inventory = $query->getResult();
+
+    //     return view('templates/header') . view('templates/sidebar') . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId]) . view('templates/htmlclose');
+    // }
+
     public function viewInventory($leadId)
     {
         $db = \Config\Database::connect();
-
-        // Get inventory matching this upload_inventory_id (lead ID)
         $builder = $db->table('customer_inventory');
         $builder->where('upload_inventory_id', $leadId);
         $query = $builder->get();
-
         $inventory = $query->getResult();
 
-        return view('templates/header') . view('templates/sidebar') . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId]) . view('templates/htmlclose');
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId])
+            . view('templates/htmlclose');
+    }
+
+    public function addInventory()
+    {
+        $data = $this->request->getPost();
+
+        $db = \Config\Database::connect();
+        $db->table('customer_inventory')->insert([
+            'upload_inventory_id' => $data['upload_inventory_id'],
+            'item_name' => $data['item_name'],
+            'quantity' => $data['quantity'],
+            // 'assemble' => $data['assemble'],
+            // 'crating' => $data['crating'],
+            // 'dismounting' => $data['dismounting']
+        ]);
+
+        return redirect()->back()->with('success', 'Inventory added successfully.');
+    }
+
+    // public function updateInventory($id)
+    // {
+    //     $data = $this->request->getPost();
+
+    //     $db = \Config\Database::connect();
+    //     $db->table('customer_inventory')->where('id', $id)->update([
+    //         'item_name' => $data['item_name'],
+    //         'quantity' => $data['quantity'],
+    //         // 'assemble' => $data['assemble'],
+    //         // 'crating' => $data['crating'],
+    //         // 'dismounting' => $data['dismounting']
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Inventory updated successfully.');
+    // }
+
+    public function updateInventory($id)
+    {
+        $model = new \App\Models\CustomerInventoryModel();
+
+        $data = [
+            'item_name'   => $this->request->getPost('item_name'),
+            'quantity'    => $this->request->getPost('quantity'),
+            // 'assemble'    => $this->request->getPost('assemble'),
+            // 'crating'     => $this->request->getPost('crating'),
+            // 'dismounting' => $this->request->getPost('dismounting'),
+        ];
+
+        if ($model->update($id, $data)) {
+            return redirect()->back()->with('success', 'Inventory updated successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to update inventory.');
+        }
+    }
+
+
+
+    public function deleteInventory($id)
+    {
+        $db = \Config\Database::connect();
+        $db->table('customer_inventory')->where('id', $id)->delete();
+
+        return redirect()->back()->with('success', 'Inventory deleted successfully.');
     }
 
 

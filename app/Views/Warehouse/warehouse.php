@@ -10,8 +10,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>State</th>
-                        <th>slug</th>
+                        <th>City Name</th>
+                        <th>Contact Number</th>
+                        <th>Email</th>
                         <th>Action</th> <!-- Action Column -->
                     </tr>
                 </thead>
@@ -20,11 +21,11 @@
                         <tr>
                             <td><?= esc($warehouse['id']) ?></td>
                             <td><?= esc($warehouse['city_name']) ?></td>
-                            <td><?= esc($warehouse['slug']) ?></td>
+                            <td><?= esc($warehouse['contact_number']) ?></td>
+                            <td><?= esc($warehouse['email']) ?></td>
                             <td>
-                                <a href="<?= base_url('warehouse/edit/' . $warehouse['id']) ?>">
-                                    <i class="fa fa-edit fa-2x ele-color c-p"></i>
-                                </a>
+                                <a href="<?= base_url('warehouse/edit/' . $warehouse['id']) ?>" class="btn btn-sm btn-danger">Edit</a>
+                                <a href="<?= base_url('warehouse/view/' . $warehouse['id']) ?>" class="btn btn-sm btn-success">View</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -37,3 +38,5 @@
                 </ul>
             </div>
         </div>
+    </div>
+</div>
