@@ -34,7 +34,7 @@ $routes->get('/customerlogout', 'Login::customerlogout');
 // customer Login close
 
 // AJAX email/phone uniqueness check
-$routes->post('register/checkUnique', 'Home::checkUnique');
+// $routes->post('register/checkUnique', 'Home::checkUnique');
 
 
 
@@ -71,3 +71,13 @@ $routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1', ['filter' => '
 
 
 $routes->get('inventory/view/(:num)', 'Home::viewInventory/$1');
+
+
+
+// warehose
+$routes->get('warehouse', 'WarehouseController::index');
+$routes->get('warehouse/create', 'WarehouseController::create');
+$routes->post('warehouse/store', 'WarehouseController::store');
+$routes->get('warehouse/edit/(:num)', 'WarehouseController::edit/$1');
+$routes->post('warehouse/update/(:num)', 'WarehouseController::update/$1');
+$routes->get('warehouse/delete/(:num)', 'WarehouseController::delete/$1');

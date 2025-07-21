@@ -154,9 +154,9 @@
         <!-- Warhouses: ✅ Only for admin -->
         <?php if ($userRole === 'admin'): ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('allemployee') ?>">
+            <a class="nav-link" href="<?= base_url('warehouse') ?>">
               <span class="menu-title">Warehouse</span>
-              <i class="menu-icon fa fa-vcard"></i>
+              <i class="menu-icon fa fa-home"></i>
             </a>
           </li>
         <?php endif; ?>

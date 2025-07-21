@@ -103,7 +103,7 @@ class Home extends BaseController
         $totalLeads = $query->countAllResults(false);
 
         // Final result
-        $leads = $query->orderBy('created_at', 'desc')->findAll($perPage, $offset);
+        $leads = $query->orderBy('id', 'asc')->findAll($perPage, $offset);
 
         return $this->response->setJSON([
             'leads' => $leads,
