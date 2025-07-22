@@ -13,6 +13,7 @@ class CustomerInventoryModel extends Model
         'upload_inventory_id',
         'item_name',
         'quantity',
+        'barcode_value',
         'assemble_disassemble',
         'wood_crating',
         'wall_dismounting',

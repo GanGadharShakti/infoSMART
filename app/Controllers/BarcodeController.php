@@ -9,95 +9,113 @@ class BarcodeController extends BaseController
 {
     public function index()
     {
+
         return view('templates/header')
             . view('templates/sidebar')
             . view('Home/barcode_form')
             . view('templates/htmlclose');
     }
-
     public function generate()
     {
         $rackId = $this->request->getPost('rack_product_id');
         $barcodeValue = $this->request->getPost('barcode_value');
 
-        if (empty($rackId) || empty($barcodeValue)) {
-            return redirect()->back()->with('error', 'Fields required.');
+        if (empty($rackId)) {
+            return redirect()->back()->with('error', 'Rack Product ID is required.');
         }
 
-        // Generate barcode
+        // If barcode is not provided, auto-generate it
+        if (empty($barcodeValue)) {
+            $barcodeValue = 'PNV-' . str_pad($rackId, 4, '0', STR_PAD_LEFT);
+        }
+
+        // Generate barcode image
         $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
         $barcodeImage = $generator->getBarcode($barcodeValue, $generator::TYPE_CODE_128);
 
-        // Convert to image
+        // Convert to GD image
         $barcodeGD = imagecreatefromstring($barcodeImage);
 
-        // Desired final size (in pixels)
-        $finalWidth = 192; // 2 inches at 96 DPI
-        $finalHeight = 96; // 1 inch at 96 DPI
+        // Final image dimensions
+        $finalWidth = 192;
+        $finalHeight = 96;
 
-        // Add text space
-        $fontSize = 2; // smaller font to fit
+        $fontSize = 2;
         $textHeight = imagefontheight($fontSize);
         $barcodeAreaHeight = $finalHeight - $textHeight;
 
-        // Create final canvas
         $canvas = imagecreatetruecolor($finalWidth, $finalHeight);
         $white = imagecolorallocate($canvas, 255, 255, 255);
         $black = imagecolorallocate($canvas, 0, 0, 0);
         imagefill($canvas, 0, 0, $white);
 
-        // Resize original barcode proportionally
         imagecopyresampled(
             $canvas,
             $barcodeGD,
             0,
-            0,                 // dest x,y
             0,
-            0,                 // src x,y
+            0,
+            0,
             $finalWidth,
-            $barcodeAreaHeight,    // dest w,h
+            $barcodeAreaHeight,
             imagesx($barcodeGD),
-            imagesy($barcodeGD)  // src w,h
+            imagesy($barcodeGD)
         );
 
-        // Add text below barcode
         $textWidth = imagefontwidth($fontSize) * strlen($barcodeValue);
         $textX = ($finalWidth - $textWidth) / 2;
         $textY = $barcodeAreaHeight + 1;
-
         imagestring($canvas, $fontSize, $textX, $textY, $barcodeValue, $black);
 
-        // Save
         $fileName = $barcodeValue . '_' . time() . '.png';
         $savePath = FCPATH . 'barcodes/' . $fileName;
+
         if (!is_dir(FCPATH . 'barcodes')) {
             mkdir(FCPATH . 'barcodes', 0777, true);
         }
+
         imagepng($canvas, $savePath);
-        // Save in DB
+
+        // Save to DB
         $model = new \App\Models\BarcodeModel();
         $model->insert([
             'rack_product_id' => $rackId,
             'barcode_value'   => $barcodeValue,
-            'qr_image_path'   => 'barcodes/' . $fileName,
-           'generated_by' => session()->get('user_name')
-
+            'qr_image_path'   => '/barcodes/' . $fileName,
+            'generated_by'    => session()->get('user_name') ?? 'system'
         ]);
 
-        // Cleanup
         imagedestroy($barcodeGD);
         imagedestroy($canvas);
 
-        return redirect()->to(base_url('barcode/list'))->with('success', 'Barcode generated with fixed size.');
+        return redirect()->to(base_url('barcode/list'))->with('success', 'Barcode generated for ' . $barcodeValue);
     }
 
 
 
+    // public function list()
+    // {
+    //     $model = new BarcodeModel();
+    //     $data['barcodes'] = $model->findAll();
+
+    //     return view('templates/header')
+    //         . view('templates/sidebar')
+    //         . view('Home/barcode_list', $data)
+    //         . view('templates/htmlclose');
+    // }
 
     public function list()
     {
-        $model = new BarcodeModel();
-        $data['barcodes'] = $model->findAll();
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('pine_store_warehouse_barcodes b');
+        $builder->select('b.*, c.id AS customer_id, c.customer_name');
+        $builder->join('customer_inventory i', 'i.id = b.rack_product_id', 'left');
+        $builder->join('pine_upload_inventory c', 'c.id = i.upload_inventory_id', 'left');
+        $builder->orderBy('b.generated_at', 'DESC');
+
+        $query = $builder->get();
+        $data['barcodes'] = $query->getResultArray();
 
         return view('templates/header')
             . view('templates/sidebar')

@@ -8,7 +8,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th>#</th>
+                                <th>Id</th>
                                 <th>Item Name</th>
                                 <th>Quantity</th>
                                 <th>Assemble</th>

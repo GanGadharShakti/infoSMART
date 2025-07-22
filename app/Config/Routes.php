@@ -59,6 +59,8 @@ $routes->get('barcode/list', 'BarcodeController::list');
 $routes->get('/table', 'Home::table');
 // $routes->get('/customers', 'Home::customers');
 $routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']);
+// $routes->get('inventory/view/(:num)', 'Home::customerviewInventory/$1', ['filter' => 'role:admin,manager']);
+
 $routes->get('/upload_inventory', 'Home::upload_inventory');
 // $routes->get('/inventorylist', 'Home::inventorylist');
 // ✅ Inventory List — Only for admin and customer
@@ -86,3 +88,13 @@ $routes->get('warehouse/edit/(:num)', 'WarehouseController::edit/$1');
 $routes->post('warehouse/update/(:num)', 'WarehouseController::update/$1');
 $routes->get('warehouse/delete/(:num)', 'WarehouseController::delete/$1');
 $routes->get('warehouse/view/(:num)', 'WarehouseController::view/$1'); // View warehouse locations by city_id
+
+
+
+// =====================
+
+$routes->get('child-barcodes-view', 'ChildBarcodeController::viewPage');
+$routes->get('child-barcodes/(:num)', 'ChildBarcodeController::getByInventoryId/$1');
+$routes->post('child-barcodes/add', 'ChildBarcodeController::add');
+$routes->delete('child-barcodes/delete/(:num)', 'ChildBarcodeController::delete/$1');
+$routes->get('child-barcodes-full/(:num)', 'ChildBarcodeController::getCustomerAndBarcodes/$1');

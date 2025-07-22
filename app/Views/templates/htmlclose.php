@@ -38,6 +38,7 @@
 <script src="<?= base_url('assets/js/allemployee.js') ?>"></script>
 <script src="<?= base_url('assets/js/employeupdate.js') ?>"></script>
 <script src="<?= base_url('assets/js/customer_inventory.js') ?>"></script>
+<script src="<?= base_url('assets/js/fetchChildBarcodes.js') ?>"></script>
 
 
 </body>

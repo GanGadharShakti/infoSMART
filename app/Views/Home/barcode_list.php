@@ -6,8 +6,11 @@
                     <!-- Barcode List -->
                     <div class="card-body">
                         <div class="w-100 ele-bg p-4 mb-4 d-flex justify-content-between align-items-center">
-                            <h4 class="mb-0">Stored Barcodes</h4>
-                            <a href="<?= base_url('barcode') ?>" class="btn custom-button gen-bord">+ Generate New</a>
+                            <h4 class="mb-0 w-50">Stored Barcodes</h4>
+                            <div class="w-50 d-flex justify-content-center gap-5 align-items-center">
+                                <a href="<?= base_url('barcode') ?>" class="btn custom-button gen-bord">+ Generate New</a>
+                                <a href="<?= base_url('child-barcodes-view') ?>" class="btn custom-button gen-bord">per item Barcodes</a>
+                            </div>
                         </div>
 
                         <?php if (session()->getFlashdata('success')): ?>
@@ -15,10 +18,12 @@
                         <?php endif; ?>
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead class="table-dark">
+                            <table class="display table table-hover">
+                                <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Customer ID</th>
+                                        <th>Customer Name</th>
                                         <th>Rack Product ID</th>
                                         <th>Barcode Value</th>
                                         <th>Barcode</th>
@@ -30,17 +35,19 @@
                                         <?php foreach ($barcodes as $index => $barcode): ?>
                                             <tr>
                                                 <td><?= $index + 1 ?></td>
+                                                <td><?= esc($barcode['customer_id'] ?? 'N/A') ?></td>
+                                                <td><?= esc($barcode['customer_name'] ?? 'N/A') ?></td>
                                                 <td><?= esc($barcode['rack_product_id']) ?></td>
                                                 <td><?= esc($barcode['barcode_value']) ?></td>
                                                 <td>
                                                     <?php if (!empty($barcode['qr_image_path'])): ?>
                                                         <img src="<?= base_url($barcode['qr_image_path']) ?>"
-                                                             alt="Barcode"
-                                                             class="img-fluid border p-1 rounded"
-                                                             style="width: 100px; object-fit: contain; cursor: pointer;"
-                                                             data-bs-toggle="modal"
-                                                             data-bs-target="#barcodeModal"
-                                                             data-img="<?= base_url($barcode['qr_image_path']) ?>">
+                                                            alt="Barcode"
+                                                            class="img-fluid border p-1 rounded"
+                                                            style="width: 100px; object-fit: contain; cursor: pointer;"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#barcodeModal"
+                                                            data-img="<?= base_url($barcode['qr_image_path']) ?>">
                                                     <?php else: ?>
                                                         <span class="text-muted">No Image</span>
                                                     <?php endif; ?>
@@ -50,7 +57,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="text-center">No barcodes found.</td>
+                                            <td colspan="7" class="text-center">No barcodes found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -86,3 +93,8 @@
                         </script>
 
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

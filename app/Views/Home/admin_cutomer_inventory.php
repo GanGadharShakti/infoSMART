@@ -37,6 +37,8 @@
               <!-- <th>Assemble</th>
               <th>Crating</th>
               <th>Dismounting</th> -->
+              <!-- <th>Barcode</th> -->
+
               <th>Actions</th>
             </tr>
           </thead>

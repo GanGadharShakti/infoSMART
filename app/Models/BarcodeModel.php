@@ -15,3 +15,6 @@ class BarcodeModel extends Model
         'generated_by'
     ];
 }
+
+
+?>

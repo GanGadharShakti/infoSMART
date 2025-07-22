@@ -5,6 +5,14 @@ namespace App\Controllers;
 // use App\Models\EleUserModel;
 use App\Models\UserModel;
 use App\Models\WarehouseModel;
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use App\Models\CustomerInventoryModel;
+use App\Models\BarcodeModel;
+// use App\Models\CustomerInventoryModel;
+// use App\Models\BarcodeModel;
+use App\Models\CustomerInventoryChildBarcodeModel;
+// use Picqer\Barcode\BarcodeGeneratorPNG;
+
 
 class Home extends BaseController
 {
@@ -141,29 +149,36 @@ class Home extends BaseController
             . view('templates/htmlclose');
     }
 
-    public function addInventory()
-    {
-        $data = $this->request->getPost();
+    // public function customerviewInventory($leadId)
+    // {
+    //     $leadModel = new PineUploadInventoryModel();
+    //     $inventoryModel = new \App\Models\CustomerInventoryModel();
 
-        $db = \Config\Database::connect();
-        $db->table('customer_inventory')->insert([
-            'upload_inventory_id' => $data['upload_inventory_id'],
-            'item_name' => $data['item_name'],
-            'quantity' => $data['quantity'],
-            // 'assemble' => $data['assemble'],
-            // 'crating' => $data['crating'],
-            // 'dismounting' => $data['dismounting']
-        ]);
+    //     // Fetch customer (lead) by ID
+    //     $customer = $leadModel->find($leadId);
 
-        return redirect()->back()->with('success', 'Inventory added successfully.');
-    }
+    //     // Fetch customer inventory using upload_inventory_id
+    //     $inventoryItems = $inventoryModel
+    //         ->where('upload_inventory_id', $leadId)
+    //         ->findAll();
 
-    // public function updateInventory($id)
+    //     return view('inventory/view_inventory', [
+    //         'customer' => $customer,
+    //         'inventoryItems' => $inventoryItems,
+    //     ]);
+    // }
+
+
+
+
+
+    // public function addInventory()
     // {
     //     $data = $this->request->getPost();
 
     //     $db = \Config\Database::connect();
-    //     $db->table('customer_inventory')->where('id', $id)->update([
+    //     $db->table('customer_inventory')->insert([
+    //         'upload_inventory_id' => $data['upload_inventory_id'],
     //         'item_name' => $data['item_name'],
     //         'quantity' => $data['quantity'],
     //         // 'assemble' => $data['assemble'],
@@ -171,8 +186,198 @@ class Home extends BaseController
     //         // 'dismounting' => $data['dismounting']
     //     ]);
 
-    //     return redirect()->back()->with('success', 'Inventory updated successfully.');
+    //     return redirect()->back()->with('success', 'Inventory added successfully.');
     // }
+
+    // G; // Make sure this is installed via Composer
+
+
+    // public function addInventory()
+    // {
+    //     $inventoryModel = new CustomerInventoryModel();
+    //     $barcodeModel   = new BarcodeModel();
+
+    //     $uploadInventoryId = $this->request->getPost('upload_inventory_id');
+    //     $itemName          = $this->request->getPost('item_name');
+    //     $quantity          = $this->request->getPost('quantity');
+
+    //     // You must already have these available based on logged-in user or passed hidden input
+    //     $customerId      = $this->request->getPost('customer_id'); // from form
+    //     $customerName    = $this->request->getPost('customer_name'); // from form
+    //     $contactNumber   = $this->request->getPost('contact_number'); // from form
+
+    //     // Insert into customer_inventory
+    //     $inventoryModel->insert([
+    //         'upload_inventory_id' => $uploadInventoryId,
+    //         'item_name'           => $itemName,
+    //         'quantity'            => $quantity,
+    //     ]);
+
+    //     $inventoryId = $inventoryModel->getInsertID(); // Last inserted inventory ID
+
+    //     // Combine customer info for barcode value
+    //     $barcodeValue = "CUST{$customerId}-{$customerName}-{$contactNumber}-INV{$inventoryId}";
+
+    //     // Generate barcode image
+    //     $barcodeDir = FCPATH . '/barcodes/';
+    //     if (!is_dir($barcodeDir)) {
+    //         mkdir($barcodeDir, 0777, true);
+    //     }
+
+    //     $generator = new BarcodeGeneratorPNG();
+    //     $barcodeData = $generator->getBarcode($barcodeValue, $generator::TYPE_CODE_128);
+    //     $barcodeFileName = $barcodeValue . '.png';
+    //     $barcodePath = $barcodeDir . $barcodeFileName;
+
+    //     file_put_contents($barcodePath, $barcodeData);
+
+    //     // Insert into barcode table
+    //     $barcodeModel->insert([
+    //         'rack_product_id' => $inventoryId,
+    //         'barcode_value'   => $barcodeValue,
+    //         'qr_image_path'   => '/barcodes/' . $barcodeFileName,
+    //         'generated_by'    => session()->get('user_id') ?? 0,
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Item added and barcode generated.');
+    // }
+
+
+
+    // with barcode
+    // public function addInventory()
+    // {
+    //     $inventoryModel = new CustomerInventoryModel();
+    //     $barcodeModel   = new BarcodeModel();
+
+    //     $uploadInventoryId = $this->request->getPost('upload_inventory_id');
+    //     $itemName          = $this->request->getPost('item_name');
+    //     $quantity          = $this->request->getPost('quantity');
+
+    //     // Get customer info from form (you are manually passing these)
+    //     $customerId      = $this->request->getPost('customer_id');
+    //     $customerName    = $this->request->getPost('customer_name');
+    //     $contactNumber   = $this->request->getPost('contact_number');
+
+    //     // Step 1: Insert into customer_inventory
+    //     $inventoryData = [
+    //         'upload_inventory_id' => $uploadInventoryId,
+    //         'item_name'           => $itemName,
+    //         'quantity'            => $quantity,
+    //     ];
+    //     $inventoryModel->insert($inventoryData);
+    //     $inventoryId = $inventoryModel->getInsertID();
+
+    //     // Step 2: Generate barcode value
+    //     $barcodeValue = 'PNV-' . str_pad($inventoryId, 4, '0', STR_PAD_LEFT);
+
+    //     // Step 3: Generate barcode image
+    //     $barcodeDir = FCPATH . '/barcodes/';
+    //     if (!is_dir($barcodeDir)) {
+    //         mkdir($barcodeDir, 0777, true);
+    //     }
+
+    //     $generator = new BarcodeGeneratorPNG();
+    //     $barcodeData = $generator->getBarcode($barcodeValue, $generator::TYPE_CODE_128);
+    //     $barcodeFileName = $barcodeValue . '.png';
+    //     $barcodePath = $barcodeDir . $barcodeFileName;
+    //     file_put_contents($barcodePath, $barcodeData);
+
+    //     // Step 4: Insert into pine_store_warehouse_barcodes table
+    //     $barcodeModel->insert([
+    //         'rack_product_id'   => $inventoryId,
+    //         'barcode_value'     => $barcodeValue,
+    //         'qr_image_path'     => '/barcodes/' . $barcodeFileName,
+    //         'generated_by'      => session()->get('user_id') ?? 0,
+    //         'customer_id'       => $customerId,
+    //         'customer_name'     => $customerName,
+    //         'customer_contact'  => $contactNumber,
+    //     ]);
+
+    //     // Step 5: Update customer_inventory with barcode_value
+    //     if ($inventoryId && !empty($barcodeValue)) {
+    //         $inventoryModel->update($inventoryId, [
+    //             'barcode_value' => $barcodeValue
+    //         ]);
+    //     }
+
+
+    //     return redirect()->back()->with('success', 'Item added and barcode generated.');
+    // }
+
+
+
+    public function addInventory()
+    {
+        $inventoryModel   = new CustomerInventoryModel();
+        $barcodeModel     = new BarcodeModel();
+        $childBarcodeModel = new CustomerInventoryChildBarcodeModel();
+
+        $uploadInventoryId = $this->request->getPost('upload_inventory_id');
+        $itemName          = $this->request->getPost('item_name');
+        $quantity          = (int)$this->request->getPost('quantity');
+
+        $customerId        = $this->request->getPost('customer_id');
+        $customerName      = $this->request->getPost('customer_name');
+        $contactNumber     = $this->request->getPost('contact_number');
+
+        // Step 1: Insert into customer_inventory
+        $inventoryData = [
+            'upload_inventory_id' => $uploadInventoryId,
+            'item_name'           => $itemName,
+            'quantity'            => $quantity,
+        ];
+        $inventoryModel->insert($inventoryData);
+        $inventoryId = $inventoryModel->getInsertID();
+
+        // Step 2: Generate parent barcode value
+        $parentBarcodeValue = 'PNV-' . str_pad($inventoryId, 4, '0', STR_PAD_LEFT);
+
+        // Step 3: Generate parent barcode image
+        $barcodeDir = FCPATH . '/barcodes/';
+        if (!is_dir($barcodeDir)) {
+            mkdir($barcodeDir, 0777, true);
+        }
+
+        $generator = new BarcodeGeneratorPNG();
+        $barcodeData = $generator->getBarcode($parentBarcodeValue, $generator::TYPE_CODE_128);
+        $parentBarcodeFile = $parentBarcodeValue . '.png';
+        $parentBarcodePath = $barcodeDir . $parentBarcodeFile;
+        file_put_contents($parentBarcodePath, $barcodeData);
+
+        // Step 4: Insert parent barcode
+        $barcodeModel->insert([
+            'rack_product_id'   => $inventoryId,
+            'barcode_value'     => $parentBarcodeValue,
+            'qr_image_path'     => '/barcodes/' . $parentBarcodeFile,
+            'generated_by'      => session()->get('user_id') ?? 0,
+            'customer_id'       => $customerId,
+            'customer_name'     => $customerName,
+            'customer_contact'  => $contactNumber,
+        ]);
+
+        // Step 5: Insert child barcodes based on quantity
+        for ($i = 1; $i <= $quantity; $i++) {
+            $childBarcodeValue = $parentBarcodeValue . '-' . $i;
+            $childBarcodeFile = $childBarcodeValue . '.png';
+            $childBarcodePath = $barcodeDir . $childBarcodeFile;
+
+            $childData = $generator->getBarcode($childBarcodeValue, $generator::TYPE_CODE_128);
+            file_put_contents($childBarcodePath, $childData);
+
+            $childBarcodeModel->insert([
+                'inventory_id'         => $inventoryId,
+                'child_barcode_value'  => $childBarcodeValue,
+                'serial_number'        => $i,
+                'qr_image_path'        => '/barcodes/' . $childBarcodeFile,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Inventory and barcodes created successfully.');
+    }
+
+
+
 
     public function updateInventory($id)
     {

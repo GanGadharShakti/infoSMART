@@ -101,14 +101,14 @@
         <?php endif; ?>
 
         <!-- Customers: ✅ Only for admin -->
-        <?php if (in_array($userRole, ['admin', 'manager'])): ?>
+        <!-- <?php if (in_array($userRole, ['admin', 'manager'])): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('customers') ?>">
               <span class="menu-title">Customers</span>
               <i class="mdi mdi-speedometer menu-icon"></i>
             </a>
           </li>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
         <!-- All Employee: ✅ Only for admin -->
         <?php if ($userRole === 'admin'): ?>
@@ -134,7 +134,7 @@
         <!-- Inventory List: ✅ For admin and manager -->
         <?php if (in_array($userRole, ['admin', 'manager'])): ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('barcode') ?>">
+            <a class="nav-link" href="<?= base_url('barcode/list') ?>">
               <span class="menu-title">Barcode genrator</span>
               <i class="fa fa-qrcode  mdi-package menu-icon "></i>
             </a>

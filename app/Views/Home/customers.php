@@ -140,34 +140,40 @@ $cards = [
 
                         <!-- Responsive Table -->
 
-                        <div class="table-responsive">
-                            <table id="dataTable" class="display table table-hover">
-                                <thead>
+                        <h2>Inventory for <?= esc($customer['cust_name']) ?></h2>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Barcode</th>
+                                    <th>Image</th>
+                                    <th>View Child Barcodes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($inventories as $i => $item): ?>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Action</th>
-                                        <th>Lead Id</th>
-                                        <th>Lead Date</th>
-                                        <th>Customer Name</th>
-                                        <th>Contact No.</th>
-                                        <th>Home Size</th>
-                                        <th>Warehouse</th>
-                                        <!-- <th>Type</th> -->
-                                        <th>Service Type</th>
+                                        <td><?= $i + 1 ?></td>
+                                        <td><?= esc($item['item_name']) ?></td>
+                                        <td><?= esc($item['quantity']) ?></td>
+                                        <td><?= esc($item['barcode']['barcode_value'] ?? '-') ?></td>
+                                        <td>
+                                            <?php if (!empty($item['barcode']['qr_image_path'])): ?>
+                                                <img src="<?= base_url($item['barcode']['qr_image_path']) ?>" width="50">
+                                            <?php else: ?>
+                                                N/A
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <a href="<?= base_url('inventory/child-barcodes/' . $item['id']) ?>" class="btn btn-sm btn-primary">View</a>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody id="dataBody">
-                                    <!-- Data will be appended here via AJAX -->
-                                </tbody>
-                            </table>
-
-
-                            <div class="pagination-container">
-                                <ul id="pagination" class="pagination">
-                                    <!-- Pagination buttons will be dynamically generated here -->
-                                </ul>
-                            </div>
-                        </div>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
 
                         <!-- End of Table -->
                     </div>
@@ -1323,3 +1329,6 @@ $cards = [
                 </div>
             </div>
         </div>
+
+
+        <script src="/assets/js/customerlead.js"></script>
