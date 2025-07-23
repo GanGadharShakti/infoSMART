@@ -7,9 +7,9 @@
                     <div class="card-body">
                         <div class="w-100 ele-bg p-4 mb-4 d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">Stored Barcodes</h4>
-                           
-                                <a href="<?= base_url('barcode/list') ?>" class="btn custom-button gen-bord">Box barcode</a>
-                        
+
+                            <a href="<?= base_url('barcode/list') ?>" class="btn custom-button gen-bord">Box barcode</a>
+
                         </div>
 
                         <?php if (session()->getFlashdata('success')): ?>
@@ -32,7 +32,15 @@
 
 
                         <!-- Customer Details Block -->
-                        <div id="customerDetails" class="mb-3"></div>
+                        <div class=" py-2 d-flex justify-content-between">
+                            <div id="customerDetails" class="mb-3 ">
+                            </div>
+                            <div>
+                                <!-- <input type="text" id="inventorySearch" class="form-control" placeholder="Enter Inventory ID..."> -->
+                                <button onclick="searchChildBarcodesout()" class=" btn btn-danger">Out Items</button>
+                            </div>
+                        </div>
+
                         <!-- Customer Details Block close -->
 
                         <div class="table-responsive mb-4">
@@ -43,6 +51,7 @@
                                         <th>Child Barcode</th>
                                         <th>Serial No</th>
                                         <th>Barcode</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -52,6 +61,24 @@
 
 
                         <!-- Modal for barcode preview -->
+
+
+
+                        <!-- Barcode Full Image Modal -->
+                        <div class="modal fade" id="barcodeModal" tabindex="-1" aria-labelledby="barcodeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Full Barcode Image</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img id="barcodeFullImage" src="" class="img-fluid" alt="Barcode Image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Barcode Preview Modal -->
                         <div class="modal fade" id="barcodePreviewModal" tabindex="-1" aria-labelledby="barcodePreviewModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -67,18 +94,7 @@
                             </div>
                         </div>
 
-                        <!-- Script for image modal -->
-                        <script>
-                            const modalImg = document.getElementById('barcodePreview');
-                            const thumbs = document.querySelectorAll('img[data-bs-toggle="modal"]');
 
-                            thumbs.forEach(img => {
-                                img.addEventListener('click', function() {
-                                    const fullSrc = this.getAttribute('data-img');
-                                    modalImg.setAttribute('src', fullSrc);
-                                });
-                            });
-                        </script>
                     </div>
                 </div>
             </div>

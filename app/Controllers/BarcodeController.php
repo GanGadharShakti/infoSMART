@@ -49,6 +49,7 @@ class BarcodeController extends BaseController
         $black = imagecolorallocate($canvas, 0, 0, 0);
         imagefill($canvas, 0, 0, $white);
 
+        // Resize and copy barcode into canvas
         imagecopyresampled(
             $canvas,
             $barcodeGD,
@@ -62,11 +63,13 @@ class BarcodeController extends BaseController
             imagesy($barcodeGD)
         );
 
+        // Draw barcode value below the barcode (centered)
         $textWidth = imagefontwidth($fontSize) * strlen($barcodeValue);
         $textX = ($finalWidth - $textWidth) / 2;
         $textY = $barcodeAreaHeight + 1;
         imagestring($canvas, $fontSize, $textX, $textY, $barcodeValue, $black);
 
+        // Save the image
         $fileName = $barcodeValue . '_' . time() . '.png';
         $savePath = FCPATH . 'barcodes/' . $fileName;
 
@@ -85,11 +88,13 @@ class BarcodeController extends BaseController
             'generated_by'    => session()->get('user_name') ?? 'system'
         ]);
 
+        // Clean up
         imagedestroy($barcodeGD);
         imagedestroy($canvas);
 
         return redirect()->to(base_url('barcode/list'))->with('success', 'Barcode generated for ' . $barcodeValue);
     }
+
 
 
 
@@ -104,18 +109,57 @@ class BarcodeController extends BaseController
     //         . view('templates/htmlclose');
     // }
 
+    // public function list()
+    // {
+    //     $db = \Config\Database::connect();
+
+    //     $builder = $db->table('pine_store_warehouse_barcodes b');
+    //     $builder->select('b.*, i.item_name, c.id AS customer_id, c.customer_name');
+    //     $builder->join('customer_inventory i', 'i.id = b.rack_product_id', 'left');
+    //     $builder->join('pine_upload_inventory c', 'c.id = i.upload_inventory_id', 'left');
+    //     $builder->orderBy('b.generated_at', 'DESC');
+
+
+    //     $query = $builder->get();
+    //     $data['barcodes'] = $query->getResultArray();
+
+    //     return view('templates/header')
+    //         . view('templates/sidebar')
+    //         . view('Home/barcode_list', $data)
+    //         . view('templates/htmlclose');
+    // }
+
+
     public function list()
     {
         $db = \Config\Database::connect();
 
         $builder = $db->table('pine_store_warehouse_barcodes b');
-        $builder->select('b.*, c.id AS customer_id, c.customer_name');
+        $builder->select('b.*, i.item_name, c.id AS customer_id, c.customer_name');
         $builder->join('customer_inventory i', 'i.id = b.rack_product_id', 'left');
         $builder->join('pine_upload_inventory c', 'c.id = i.upload_inventory_id', 'left');
         $builder->orderBy('b.generated_at', 'DESC');
 
+        // Apply search filters if present
+        $customerName = $this->request->getGet('customer_name');
+        $customerId = $this->request->getGet('customer_id');
+
+        if (!empty($customerName)) {
+            $builder->like('c.customer_name', $customerName);
+        }
+
+        if (!empty($customerId)) {
+            $builder->where('c.id', $customerId);
+        }
+
         $query = $builder->get();
         $data['barcodes'] = $query->getResultArray();
+
+        // Pass filters to view so form retains values
+        $data['filters'] = [
+            'customer_name' => $customerName,
+            'customer_id' => $customerId,
+        ];
 
         return view('templates/header')
             . view('templates/sidebar')

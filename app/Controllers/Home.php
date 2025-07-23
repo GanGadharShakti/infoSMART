@@ -343,7 +343,57 @@ class Home extends BaseController
         $barcodeData = $generator->getBarcode($parentBarcodeValue, $generator::TYPE_CODE_128);
         $parentBarcodeFile = $parentBarcodeValue . '.png';
         $parentBarcodePath = $barcodeDir . $parentBarcodeFile;
-        file_put_contents($parentBarcodePath, $barcodeData);
+        // file_put_contents($parentBarcodePath, $barcodeData);
+
+
+
+
+
+        // Create image from raw barcode data
+        $barcodeGD = imagecreatefromstring($barcodeData);
+
+        // Create a canvas with space for barcode + text
+        $finalWidth = 192;
+        $finalHeight = 96;
+        $fontSize = 2;
+        $textHeight = imagefontheight($fontSize);
+        $barcodeHeight = $finalHeight - $textHeight;
+
+        $canvas = imagecreatetruecolor($finalWidth, $finalHeight);
+        $white = imagecolorallocate($canvas, 255, 255, 255);
+        $black = imagecolorallocate($canvas, 0, 0, 0);
+        imagefill($canvas, 0, 0, $white);
+
+        // Copy barcode image into canvas
+        imagecopyresampled(
+            $canvas,
+            $barcodeGD,
+            0,
+            0,
+            0,
+            0,
+            $finalWidth,
+            $barcodeHeight,
+            imagesx($barcodeGD),
+            imagesy($barcodeGD)
+        );
+
+        // Centered barcode value text below the barcode
+        $textWidth = imagefontwidth($fontSize) * strlen($parentBarcodeValue);
+        $textX = ($finalWidth - $textWidth) / 2;
+        $textY = $barcodeHeight + 1;
+        imagestring($canvas, $fontSize, $textX, $textY, $parentBarcodeValue, $black);
+
+        // Save final image
+        imagepng($canvas, $parentBarcodePath);
+        imagedestroy($barcodeGD);
+        imagedestroy($canvas);
+
+
+
+
+
+
 
         // Step 4: Insert parent barcode
         $barcodeModel->insert([
@@ -362,9 +412,50 @@ class Home extends BaseController
             $childBarcodeFile = $childBarcodeValue . '.png';
             $childBarcodePath = $barcodeDir . $childBarcodeFile;
 
+            // Generate barcode data
             $childData = $generator->getBarcode($childBarcodeValue, $generator::TYPE_CODE_128);
-            file_put_contents($childBarcodePath, $childData);
 
+            // Create GD image from barcode
+            $barcodeGD = imagecreatefromstring($childData);
+
+            // Final canvas with space for barcode + text
+            $finalWidth = 192;
+            $finalHeight = 96;
+            $fontSize = 2;
+            $textHeight = imagefontheight($fontSize);
+            $barcodeHeight = $finalHeight - $textHeight;
+
+            $canvas = imagecreatetruecolor($finalWidth, $finalHeight);
+            $white = imagecolorallocate($canvas, 255, 255, 255);
+            $black = imagecolorallocate($canvas, 0, 0, 0);
+            imagefill($canvas, 0, 0, $white);
+
+            // Copy barcode image to canvas
+            imagecopyresampled(
+                $canvas,
+                $barcodeGD,
+                0,
+                0,
+                0,
+                0,
+                $finalWidth,
+                $barcodeHeight,
+                imagesx($barcodeGD),
+                imagesy($barcodeGD)
+            );
+
+            // Draw barcode value text below the barcode (centered)
+            $textWidth = imagefontwidth($fontSize) * strlen($childBarcodeValue);
+            $textX = ($finalWidth - $textWidth) / 2;
+            $textY = $barcodeHeight + 1;
+            imagestring($canvas, $fontSize, $textX, $textY, $childBarcodeValue, $black);
+
+            // Save final image
+            imagepng($canvas, $childBarcodePath);
+            imagedestroy($barcodeGD);
+            imagedestroy($canvas);
+
+            // Save to DB
             $childBarcodeModel->insert([
                 'inventory_id'         => $inventoryId,
                 'child_barcode_value'  => $childBarcodeValue,
@@ -372,6 +463,7 @@ class Home extends BaseController
                 'qr_image_path'        => '/barcodes/' . $childBarcodeFile,
             ]);
         }
+
 
         return redirect()->back()->with('success', 'Inventory and barcodes created successfully.');
     }
@@ -493,20 +585,49 @@ class Home extends BaseController
     }
 
 
-    public function inventory_report()
-    {
-        $customerId = session()->get('customer_id');
+    // public function inventory_report()
+    // {
+    //     $customerId = session()->get('customer_id');
 
-        if (!$customerId) {
-            return redirect()->to('/cus_login')->with('error', 'Please login first.');
-        }
+    //     if (!$customerId) {
+    //         return redirect()->to('/cus_login')->with('error', 'Please login first.');
+    //     }
 
-        $inventoryModel = new \App\Models\CustomerInventoryModel();
+    //     $inventoryModel = new \App\Models\CustomerInventoryModel();
 
-        $data['inventories'] = $inventoryModel->where('upload_inventory_id', $customerId)->findAll();
+    //     $data['inventories'] = $inventoryModel->where('upload_inventory_id', $customerId)->findAll();
 
-        return view('templates/header') . view('templates/sidebar') . view('Home/inventory_report', $data) . view('templates/htmlclose');
+    //     return view('templates/header') . view('templates/sidebar') . view('Home/inventory_report', $data) . view('templates/htmlclose');
+    // }
+
+ public function inventory_report($id)
+{
+    // Load models
+    $inventoryModel       = new \App\Models\CustomerInventoryModel();
+    $childBarcodeModel    = new \App\Models\CustomerInventoryChildBarcodeModel();
+
+    // Fetch parent inventory item
+    $parentInventory = $inventoryModel->find($id);
+
+    if (!$parentInventory) {
+        return redirect()->to('/dashboard')->with('error', 'Inventory not found.');
     }
+
+    // Fetch all child barcodes for this inventory item 
+    $childBarcodes = $childBarcodeModel->where('inventory_id', $id)->findAll();
+
+    // Pass data to view
+    $data = [
+        'inventory'      => $parentInventory,
+        'childBarcodes'  => $childBarcodes,
+    ];
+
+    return view('templates/header')
+        . view('templates/sidebar')
+        . view('Home/inventory_report', $data)
+        . view('templates/htmlclose');
+}
+
 
 
 

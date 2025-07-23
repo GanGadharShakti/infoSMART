@@ -12,6 +12,7 @@ class CustomerInventoryChildBarcodeModel extends Model
         'inventory_id',
         'child_barcode_value',
         'serial_number',
+        'item_status',
         'qr_image_path'
     ];
     protected $useTimestamps    = true;

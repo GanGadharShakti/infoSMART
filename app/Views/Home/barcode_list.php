@@ -4,6 +4,9 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <!-- Barcode List -->
+
+
+
                     <div class="card-body">
                         <div class="w-100 ele-bg p-4 mb-4 d-flex justify-content-between align-items-center">
                             <h4 class="mb-0 w-50">Stored Barcodes</h4>
@@ -12,6 +15,19 @@
                                 <a href="<?= base_url('child-barcodes-view') ?>" class="btn custom-button gen-bord">per item Barcodes</a>
                             </div>
                         </div>
+                        <form method="get" class="row mb-4 g-2">
+                            <div class="col-md-5">
+                                <input type="text" name="customer_name" class="form-control" placeholder="Search by Customer Name"
+                                    value="<?= esc($filters['customer_name'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="customer_id" class="form-control" placeholder="Search by Customer ID"
+                                    value="<?= esc($filters['customer_id'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-2 d-flex gap-2">
+                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                            </div>
+                        </form>
 
                         <?php if (session()->getFlashdata('success')): ?>
                             <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
@@ -21,8 +37,9 @@
                             <table class="display table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>sr no.</th>
                                         <th>Customer ID</th>
+                                        <th>Item Name</th>
                                         <th>Customer Name</th>
                                         <th>Rack Product ID</th>
                                         <th>Barcode Value</th>
@@ -36,6 +53,7 @@
                                             <tr>
                                                 <td><?= $index + 1 ?></td>
                                                 <td><?= esc($barcode['customer_id'] ?? 'N/A') ?></td>
+                                                <td><?= esc($barcode['item_name'] ?? 'N/A') ?></td>
                                                 <td><?= esc($barcode['customer_name'] ?? 'N/A') ?></td>
                                                 <td><?= esc($barcode['rack_product_id']) ?></td>
                                                 <td><?= esc($barcode['barcode_value']) ?></td>
@@ -85,7 +103,7 @@
                             const thumbs = document.querySelectorAll('img[data-bs-toggle="modal"]');
 
                             thumbs.forEach(img => {
-                                img.addEventListener('click', function () {
+                                img.addEventListener('click', function() {
                                     const fullSrc = this.getAttribute('data-img');
                                     modalImg.setAttribute('src', fullSrc);
                                 });

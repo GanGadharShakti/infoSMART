@@ -112,4 +112,31 @@ class ChildBarcodeController extends BaseController
             'barcodes' => $barcodes
         ]);
     }
+    public function markOut($id)
+    {
+        $model = new CustomerInventoryChildBarcodeModel();
+
+        $barcode = $model->find($id);
+
+        if (!$barcode) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Child barcode not found.'
+            ]);
+        }
+
+        $updated = $model->update($id, ['item_status' => 'out']);
+
+        if ($updated) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Barcode marked as out.'
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to update barcode.'
+        ]);
+    }
 }

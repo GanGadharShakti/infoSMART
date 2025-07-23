@@ -65,7 +65,9 @@ $routes->get('/upload_inventory', 'Home::upload_inventory');
 // $routes->get('/inventorylist', 'Home::inventorylist');
 // ✅ Inventory List — Only for admin and customer
 $routes->get('/inventorylist', 'Login::customerInventory', ['filter' => 'role:admin,customer']);
-$routes->get('/inventoryreport', 'Home::inventory_report', ['filter' => 'role:admin,customer']);
+// $routes->get('/inventoryreport', 'Home::inventory_report', ['filter' => 'role:admin,customer']);
+$routes->get('inventory-report/(:num)', 'Home::inventory_report/$1', ['filter' => 'role:admin,customer']);
+
 
 // ✅ Protect other sensitive pages if needed
 $routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1', ['filter' => 'role:admin']);
@@ -98,3 +100,9 @@ $routes->get('child-barcodes/(:num)', 'ChildBarcodeController::getByInventoryId/
 $routes->post('child-barcodes/add', 'ChildBarcodeController::add');
 $routes->delete('child-barcodes/delete/(:num)', 'ChildBarcodeController::delete/$1');
 $routes->get('child-barcodes-full/(:num)', 'ChildBarcodeController::getCustomerAndBarcodes/$1');
+$routes->post('child-barcodes/mark-out/(:num)', 'ChildBarcodeController::markOut/$1');
+
+
+// ==================================
+$routes->get('barcode-search/(:any)/(:any)', 'BarcodeSearchController::search/$1/$2');
+$routes->get('barcode-search-page', 'BarcodeSearchController::searchView');

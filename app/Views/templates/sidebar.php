@@ -135,7 +135,7 @@
         <?php if (in_array($userRole, ['admin', 'manager'])): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('barcode/list') ?>">
-              <span class="menu-title">Barcode genrator</span>
+              <span class="menu-title">Barcode</span>
               <i class="fa fa-qrcode  mdi-package menu-icon "></i>
             </a>
           </li>
@@ -143,13 +143,15 @@
 
 
         <?php if (in_array($userRole, ['customer'])): ?>
+          <?php $customerId = session()->get('customer_id'); ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('inventoryreport') ?>">
+            <a class="nav-link" href="<?= base_url('inventoryreport/' . $customerId) ?>">
               <span class="menu-title">Inventory Report</span>
               <i class="fa fa-edit menu-icon"></i>
             </a>
           </li>
         <?php endif; ?>
+
 
         <!-- Warhouses: ✅ Only for admin -->
         <?php if ($userRole === 'admin'): ?>
