@@ -153,4 +153,46 @@ class customer_inventory extends BaseController
         imagedestroy($barcodeImg);
         imagedestroy($finalImage);
     }
+
+
+    // public function pdfpage()
+    // {
+
+    //     return view('templates/header') . view('templates/sidebar') . view('Home/uploadpdf') . view('templates/htmlclose');
+    // }
+
+    public function uploadPdf()
+    {
+        $session = session();
+        $uploadId = $session->get('upload_inventory_id');
+
+        if ($this->request->getMethod() === 'post') {
+            $file = $this->request->getFile('pdf_file');
+
+            if (!$file->isValid()) {
+                return redirect()->back()->with('error', $file->getErrorString());
+            }
+
+            $newName = $file->getRandomName();
+
+            // ✅ Use full path to public/uploads/pdfs
+            if ($file->move(ROOTPATH . 'public/uploads/pdfs/', $newName)) {
+                $pdfModel = new \App\Models\UploadPdfModel();
+                $pdfModel->insert([
+                    'upload_inventory_id' => $uploadId,
+                    'pdf_name' => $newName,
+                ]);
+
+                return redirect()->back()->with('success', 'PDF uploaded successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to move uploaded file.');
+            }
+        }
+
+        // ✅ Use your actual view structure
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Home/customer_uploadpdf')
+            . view('templates/htmlclose');
+    }
 }

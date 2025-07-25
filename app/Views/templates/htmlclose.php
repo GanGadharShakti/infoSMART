@@ -33,7 +33,6 @@
   const BASE_URL = "<?= base_url() ?>";
 </script>
 
-<script src="<?= base_url('assets/js/warehouse.js') ?>"></script>
 <script src="<?= base_url('assets/js/register.js') ?>"></script>
 <script src="<?= base_url('assets/js/allemployee.js') ?>"></script>
 <script src="<?= base_url('assets/js/employeupdate.js') ?>"></script>

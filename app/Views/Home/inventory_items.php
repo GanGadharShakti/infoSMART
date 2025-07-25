@@ -13,7 +13,10 @@
                             <div class="d-flex justify-content-center gap-5 align-items-center">
                                 <a href="<?= base_url('barcode-search-page') ?>" class="btn custom-button gen-bord">Item search</a>
                             </div>
+
                         </div>
+
+        
                         <table class="table table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>

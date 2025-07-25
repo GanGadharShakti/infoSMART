@@ -52,10 +52,11 @@
               <i class="mdi mdi-cached me-2 text-success"></i> Forgot Password
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="<?= base_url('logout') ?>" id="">
+            <a class="dropdown-item" href="<?= base_url('/logout') ?>" id="">
               <i class="mdi mdi-logout me-2 text-primary"></i> Signout
             </a>
           </div>
+
         </li>
 
         <!-- Fullscreen Toggle -->
@@ -67,7 +68,7 @@
 
         <!-- Logout Button -->
         <li class="nav-item nav-logout d-none d-lg-block c-p">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="<?= base_url('logout') ?>">
             <i class="mdi mdi-power"></i>
           </a>
         </li>
@@ -84,33 +85,32 @@
   <!-- Main Content Wrapper -->
   <div class="container-fluid page-body-wrapper">
     <!-- Sidebar Navigation -->
-
     <?php $userRole = session()->get('user_role'); ?>
 
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">
 
-        <!-- Dashboard: ✅ Only for admin -->
-        <?php if (in_array($userRole, ['admin'])): ?>
+        <!-- Dashboard: Only for admin -->
+        <?php if ($userRole === 'admin'): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('dashboard') ?>">
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">Admin Dashboard</span>
               <i class="mdi mdi-home menu-icon"></i>
             </a>
           </li>
         <?php endif; ?>
 
-        <!-- Customers: ✅ Only for admin -->
-        <!-- <?php if (in_array($userRole, ['admin', 'manager'])): ?>
+        <!-- Manager Dashboard -->
+        <?php if ($userRole === 'manager'): ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('customers') ?>">
-              <span class="menu-title">Customers</span>
+            <a class="nav-link" href="<?= base_url('manager') ?>">
+              <span class="menu-title">Dashboard</span>
               <i class="mdi mdi-speedometer menu-icon"></i>
             </a>
           </li>
-        <?php endif; ?> -->
+        <?php endif; ?>
 
-        <!-- All Employee: ✅ Only for admin -->
+        <!-- All Employee: Only for admin -->
         <?php if ($userRole === 'admin'): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('allemployee') ?>">
@@ -120,29 +120,60 @@
           </li>
         <?php endif; ?>
 
-        <!-- Inventory List: ✅ For admin and customer -->
-        <?php if (in_array($userRole, ['customer'])): ?>
+        <!--Customer Dashoard: Only for customers -->
+        <?php if ($userRole === 'customer'): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('customer/Dashboard') ?>">
+              <span class="menu-title">Dashboard</span>
+              <i class="fa fa-id-card mdi-package menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+        <!-- Inventory List: Only for customers -->
+        <?php if ($userRole === 'customer'): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('inventorylist') ?>">
               <span class="menu-title">Inventory List</span>
-              <i class="mdi mdi-package menu-icon"></i>
+              <i class="mdi  mdi-package menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <!-- pdf UPLOAD: Only for customers -->
+        <?php if ($userRole === 'customer'): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('customer/upload-pdf') ?>">
+              <span class="menu-title">PDF Upload</span>
+              <i class="fa fa-book mdi-package menu-icon"></i>
             </a>
           </li>
         <?php endif; ?>
 
 
-        <!-- Inventory List: ✅ For admin and manager -->
-        <?php if (in_array($userRole, ['admin', 'manager'])): ?>
+
+
+        <!-- Barcode: For admin and manager -->
+        <?php if (in_array($userRole, ['admin'])): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('barcode/list') ?>">
-              <span class="menu-title">Barcode</span>
-              <i class="fa fa-qrcode  mdi-package menu-icon "></i>
+              <span class="menu-title">Barcodes</span>
+              <i class="fa fa-qrcode mdi-package menu-icon"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php if (session()->get('user_role') === 'manager'): ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('manager/barcodes') ?>">
+              <span class="menu-title">Stored Barcodes</span>
+              <i class="fa fa-barcode menu-icon"></i>
             </a>
           </li>
         <?php endif; ?>
 
 
-        <?php if (in_array($userRole, ['customer'])): ?>
+        <!-- Inventory Report: Only for customer -->
+        <?php if ($userRole === 'customer'): ?>
           <?php $customerId = session()->get('customer_id'); ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('inventoryreport/' . $customerId) ?>">
@@ -152,8 +183,7 @@
           </li>
         <?php endif; ?>
 
-
-        <!-- Warhouses: ✅ Only for admin -->
+        <!-- Warehouse: Only for admin -->
         <?php if ($userRole === 'admin'): ?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('warehouse') ?>">
@@ -162,5 +192,6 @@
             </a>
           </li>
         <?php endif; ?>
+
       </ul>
     </nav>

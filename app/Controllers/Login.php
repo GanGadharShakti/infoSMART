@@ -41,7 +41,7 @@ class Login extends BaseController
                 if ($user['user_role'] === 'admin') {
                     return redirect()->to('/dashboard');
                 } elseif ($user['user_role'] === 'manager') {
-                    return redirect()->to('/manager/order-leads');
+                    return redirect()->to('/manager');
                 } elseif ($user['user_role'] === 'customer') {
                     return redirect()->to('/inventorylist');
                 } else {
@@ -75,14 +75,14 @@ class Login extends BaseController
         $number = trim($this->request->getPost('number'));
         $password = trim($this->request->getPost('password'));
 
-        $model = new \App\Models\PineInfoLeadModel();
-        $customer = $model->where('customer_mobile', $number)->first();
+        $model = new \App\Models\PineCustomerAccountModel();
+        $customer = $model->where('mobile_no', $number)->first();
 
         if ($customer) {
-            if (trim($customer['cust_wr_pass']) === $password) {
+            if (trim($customer['password']) === $password) {
                 // ✅ Set session with proper keys to work with sidebar logic
                 $sessionData = [
-                    'customer_id'        => $customer['id'],
+                    'customer_id'        => $customer['customer_id'],
                     'user_name'      => $customer['customer_name'],
                     'customer_name'  => $customer['customer_name'],
                     'user_role'      => 'customer', // this is very important
@@ -90,7 +90,7 @@ class Login extends BaseController
                 ];
                 $session->set($sessionData);
 
-                return redirect()->to('/inventorylist');
+                return redirect()->to('/customer/Dashboard');
             } else {
                 return redirect()->to('/')->with('error', 'Invalid password');
             }

@@ -7,8 +7,16 @@
                     <div class="card-body">
                         <div class="w-100 ele-bg p-4 mb-4 d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">Stored Barcodes</h4>
+                            <?php
+                            $userRole = session()->get('user_role'); 
 
-                            <a href="<?= base_url('barcode/list') ?>" class="btn custom-button gen-bord">Box barcode</a>
+                            if ($userRole === 'manager') {
+                                echo '<a href="' . base_url('manager/barcodes') . '" class="btn custom-button gen-bord">Box barcode</a>';
+                            } elseif ($userRole === 'admin') {
+                                echo '<a href="' . base_url('barcode/list') . '" class="btn custom-button gen-bord">Box barcode</a>';
+                            }
+                            ?>
+
 
                         </div>
 

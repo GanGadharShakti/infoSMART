@@ -9,7 +9,7 @@ $routes->get('/', 'Home::login'); // Default login page
 $routes->get('/logout', 'Home::logout');
 $routes->get('/cus_logout', 'Home::customerlogout');
 // $routes->get('/dashboard', 'Home::index'); // Dashboard
-$routes->get('/dashboard', 'Home::index', ['filter' => 'role:admin']);
+$routes->get('/dashboard', 'Home::index',);
 $routes->post('login', 'Login::login');
 $routes->get('/userdetails', 'Home::index');
 $routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1'); // Accept page number as parameter
@@ -38,10 +38,10 @@ $routes->get('/customerlogout', 'Login::customerlogout');
 
 
 
-$routes->get('allemployee', 'Allemployee::index', ['filter' => 'role:admin']);
-$routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1', ['filter' => 'role:admin']);
-$routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1', ['filter' => 'role:admin']);
-$routes->post('/allemployee/delete', 'Allemployee::delete', ['filter' => 'role:admin']);
+$routes->get('allemployee', 'Allemployee::index');
+$routes->get('/allemployee/edit/(:num)', 'Allemployee::edit/$1');
+$routes->post('/allemployee/update/(:num)', 'Allemployee::update/$1');
+$routes->post('/allemployee/delete', 'Allemployee::delete',);
 
 // barcode genrator
 
@@ -60,7 +60,7 @@ $routes->get('barcode/list', 'BarcodeController::list');
 $routes->get('/table', 'Home::table');
 // $routes->get('/customers', 'Home::customers');
 // $routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']);
-$routes->get('/customer-inventory', 'customer_inventory::list', ['filter' => 'role:admin,manager']);
+$routes->get('/customer-inventory', 'customer_inventory::list');
 
 // $routes->get('inventory/view/(:num)', 'Home::customerviewInventory/$1', ['filter' => 'role:admin,manager']);
 
@@ -73,8 +73,8 @@ $routes->get('inventory-report/(:num)', 'Home::inventory_report/$1', ['filter' =
 
 
 // ✅ Protect other sensitive pages if needed
-$routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1', ['filter' => 'role:admin']);
-$routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1', ['filter' => 'role:admin']);
+$routes->get('/fetchLeads/(:num)', 'Home::fetchLeads/$1');
+$routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1');
 
 
 // $routes->get('inventory/view/(:num)', 'Home::viewInventory/$1');
@@ -84,7 +84,6 @@ $routes->post('inventory/update/(:num)', 'Home::updateInventory/$1');
 $routes->get('/inventory/delete/(:num)', 'Home::deleteInventory/$1');
 
 
-
 $routes->get('warehouse', 'WarehouseController::index');
 $routes->get('warehouse/create', 'WarehouseController::create');
 $routes->post('warehouse/store', 'WarehouseController::store');
@@ -92,8 +91,6 @@ $routes->get('warehouse/edit/(:num)', 'WarehouseController::edit/$1');
 $routes->post('warehouse/update/(:num)', 'WarehouseController::update/$1');
 $routes->get('warehouse/delete/(:num)', 'WarehouseController::delete/$1');
 $routes->get('warehouse/view/(:num)', 'WarehouseController::view/$1'); // View warehouse locations by city_id
-
-
 
 // =====================
 
@@ -109,18 +106,20 @@ $routes->post('child-barcodes/mark-out/(:num)', 'ChildBarcodeController::markOut
 $routes->get('barcode-search/(:any)/(:any)', 'BarcodeSearchController::search/$1/$2');
 $routes->get('barcode-search-page', 'BarcodeSearchController::searchView');
 
-
-
 $routes->post('generate-customer-barcode', 'customer_inventory::generateBarcode');
-
-
-
-$routes->get('manager/order-leads', 'Home::getOrderLeads');
-$routes->get('manager/fetch-order-leads', 'Home::fetchOrderLeads');
-
-
 
 $routes->get('get-child-barcodes/(:num)', 'BarcodeController::getChildBarcodes/$1');
 
 
 
+// manger 
+$routes->get('/manager', 'ManagerLeads::managerDashboard');
+$routes->get('/manager/barcodes', 'ManagerLeads::managerBarcodeList');
+
+
+
+// pdf
+$routes->match(['get', 'post'], 'customer/upload-pdf', 'customer_inventory::uploadPdf');
+// $routes->get('upload-pdf', 'customer_inventory::pdfpage');
+
+$routes->get('customer/Dashboard', 'CunstomerLogin::cunstomerDashboard');

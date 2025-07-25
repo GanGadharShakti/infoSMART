@@ -12,6 +12,7 @@ use App\Models\BarcodeModel;
 // use App\Models\BarcodeModel;
 use App\Models\CustomerInventoryChildBarcodeModel;
 use App\Models\PineInfoLeadModel;
+use Config\Database;
 
 // use Picqer\Barcode\BarcodeGeneratorPNG;
 
@@ -20,9 +21,6 @@ class Home extends BaseController
 {
 
     public function index()
-
-
-
 
 
     {
@@ -149,20 +147,57 @@ class Home extends BaseController
         ]);
     }
 
+    // public function viewInventory($leadId)
+    // {
+    //     $db = \Config\Database::connect();
+    //     $builder = $db->table('customer_inventory');
+    //     $builder->where('upload_inventory_id', $leadId);
+    //     $query = $builder->get();
+    //     $inventory = $query->getResult();
+
+    //     return view('templates/header')
+    //         . view('templates/sidebar')
+    //         . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId])
+    //         . view('templates/htmlclose');
+    // }
+
+
     public function viewInventory($leadId)
     {
-        $db = \Config\Database::connect();
+        $db = Database::connect();
         $builder = $db->table('customer_inventory');
         $builder->where('upload_inventory_id', $leadId);
         $query = $builder->get();
         $inventory = $query->getResult();
 
+        // Add out_count to each inventory item
+        foreach ($inventory as &$item) {
+            $outCountBuilder = $db->table('customer_inventory_child_barcodes');
+            $outCount = $outCountBuilder
+                ->where('inventory_id', $item->id)
+                ->where('item_status', 'out')
+                ->countAllResults();
+
+            $item->out_count = $outCount;
+        }
+        foreach ($inventory as &$item) {
+            $outCountBuilder = $db->table('customer_inventory_child_barcodes');
+            $inCount = $outCountBuilder
+                ->where('inventory_id', $item->id)
+                ->where('item_status', 'in')
+                ->countAllResults();
+
+            $item->in_count = $inCount;
+        }
+
         return view('templates/header')
             . view('templates/sidebar')
-            . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId])
+            . view('Home/admin_cutomer_inventory', [
+                'inventory' => $inventory,
+                'leadId' => $leadId
+            ])
             . view('templates/htmlclose');
     }
-
 
     public function addInventory()
     {

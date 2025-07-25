@@ -19,6 +19,7 @@
         <div class="row g-2 mb-3">
           <div class="col-md-2"><input class="form-control" name="item_name" placeholder="Item Name" required></div>
           <div class="col-md-2"><input class="form-control" name="quantity" placeholder="Quantity" required></div>
+          <!-- <div class="col-md-2"><input class="form-control" name="incidental_expenses" placeholder="incidental expenses" required></div> -->
           <div class="col-md-2"><button class="btn btn-success w-100">Add Item</button></div>
         </div>
       </form>
@@ -28,22 +29,32 @@
         <table class="table table-hover table-bordered align-middle">
           <thead class="table-light">
             <tr>
-              <th>id</th>
+              <th>#</th>
               <th>Item Name</th>
-              <th>Quantity</th>
+              <th>in Count</th>
+              <th>Out Count</th>
+              <th>Quantity Avl.</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <?php if (!empty($inventory)): ?>
-              <?php foreach ($inventory as $index => $item): ?>
+              <?php $i = 1;
+              foreach ($inventory as $item): ?>
                 <tr>
-                  <td><?= $index + 1 ?></td>
-                  <td><?= esc($item->item_name ?? '-') ?></td>
-                  <td><?= esc($item->quantity ?? '-') ?></td>
+                  <td><?= $i++ ?></td>
+                  <td><?= esc($item->item_name ?? 'N/A') ?></td>
+                  <td>
+                    <?= esc($item->in_count ?? 0) ?>
+                  </td>
+                  <td>
+                    <?= esc($item->out_count ?? 0) ?>
+                  </td>
+                  <td><?= esc($item->quantity ?? 0) ?></td>
+
                   <td>
                     <!-- Generate Barcode Button -->
-                    <button class="btn btn-sm btn-warning generate-barcode-btn"
+                    <button class="btn btn-sm btn-success generate-barcode-btn"
                       data-id="<?= $item->id ?>"
                       data-itemname="<?= esc($item->item_name) ?>"
                       data-quantity="<?= esc($item->quantity) ?>">

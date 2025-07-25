@@ -13,33 +13,34 @@ class WarehouseController extends Controller
     {
         $model = new WarehouseModel();
         $data['warehouses'] = $model->findAll();
-        return view('templates/header') . view('templates/sidebar') . view('Warehouse/warehouse', $data) . view('templates/htmlclose');
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Warehouse/warehouse', $data)
+            . view('templates/htmlclose');
     }
 
     public function create()
     {
-        return view('templates/header') . view('templates/sidebar') . view('Warehouse/creatwarehouse') . view('templates/htmlclose');
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Warehouse/creatwarehouse')
+            . view('templates/htmlclose');
     }
-
-    // public function store()
-    // {
-    //     $model = new WarehouseModel();
-
-    //     $cityName = $this->request->getPost('city_name');
-
-    //     $data = [
-    //         'city_name'      => $cityName,
-    //         'slug'           => $this->generateSlug($cityName),
-    //         'contact_number' => $this->request->getPost('contact_number'),
-    //         'email'          => $this->request->getPost('email'),
-    //     ];
-
-    //     $model->save($data);
-    //     return redirect()->to('/warehouse')->with('message', 'City created successfully.');
-    // }
 
     public function store()
     {
+        helper(['form']);
+
+        $rules = [
+            'city_name' => 'required|min_length[2]',
+            'contact_number' => 'required|numeric|exact_length[10]',
+            'email' => 'required|valid_email'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $data = [
             'city_name'      => $this->request->getPost('city_name'),
             'slug'           => strtolower(url_title($this->request->getPost('city_name'))),
@@ -47,13 +48,10 @@ class WarehouseController extends Controller
             'email'          => $this->request->getPost('email'),
         ];
 
-        $infosmartModel = new Warehouse();
-        $warehouseModel = new WarehouseModel();
+        $infosmartModel = new Warehouse();         // Default DB
+        $warehouseModel = new WarehouseModel();    // Second DB
 
-        // First insert into infosmart (default DB)
         if ($infosmartModel->insert($data)) {
-
-            // Also insert into warehouse DB if not already present
             $existing = $warehouseModel->where('city_name', $data['city_name'])->first();
 
             if (!$existing) {
@@ -75,14 +73,28 @@ class WarehouseController extends Controller
             return redirect()->to('/warehouse')->with('error', 'City not found.');
         }
 
-        return view('templates/header') . view('templates/sidebar') . view('Warehouse/creatwarehouse', $data) . view('templates/htmlclose');
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Warehouse/creatwarehouse', $data)
+            . view('templates/htmlclose');
     }
-
 
     public function update($id)
     {
-        $infosmartModel  = new \App\Models\WarehouseModel();         // Default DB
-        $warehouseModel  = new \App\Models\Warehouse();     // Second DB
+        helper(['form']);
+
+        $rules = [
+            'city_name' => 'required|min_length[2]',
+            'contact_number' => 'required|numeric|exact_length[10]',
+            'email' => 'required|valid_email'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $infosmartModel  = new WarehouseModel();  // Default DB
+        $warehouseModel  = new Warehouse();       // Second DB
 
         $cityName = $this->request->getPost('city_name');
 
@@ -93,49 +105,38 @@ class WarehouseController extends Controller
             'email'          => $this->request->getPost('email'),
         ];
 
-        // 1. Update in infosmart
         $infosmartModel->update($id, $data);
 
-        // 2. Mirror update in warehouse
         $existing = $warehouseModel->where('city_name', $cityName)->first();
         if ($existing) {
             $warehouseModel->update($existing['id'], $data);
         } else {
-            // Insert if not present (in case it was deleted manually)
             $warehouseModel->insert($data);
         }
 
         return redirect()->to('/warehouse')->with('message', 'City updated successfully in both databases.');
     }
 
-
     public function delete($id)
     {
-        $infosmartModel  = new \App\Models\WarehouseModel();         // Default DB
-        $warehouseModel  = new \App\Models\Warehouse();     // Second DB
+        $infosmartModel  = new WarehouseModel();
+        $warehouseModel  = new Warehouse();
 
-        // First get the city by ID from infosmart DB
         $city = $infosmartModel->find($id);
 
         if ($city) {
-            // 1. Delete from infosmart DB
             $infosmartModel->delete($id);
-
-            // 2. Also delete from warehouse DB by city_name
             $warehouseModel->where('city_name', $city['city_name'])->delete();
         }
 
         return redirect()->to('/warehouse')->with('message', 'City deleted successfully from both databases.');
     }
 
-
-
-    // ✅ Slug generator function
     private function generateSlug($string)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
-        return rtrim($slug, '-');
+        return rtrim(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string))), '-');
     }
+
     public function view($id)
     {
         $warehouseModel = new WarehouseModel();
@@ -145,7 +146,6 @@ class WarehouseController extends Controller
             return redirect()->to('/warehouse')->with('error', 'Warehouse not found.');
         }
 
-        // Load warehouse_locations where city_id = warehouse_id
         $db = \Config\Database::connect();
         $builder = $db->table('warehouse_locations');
         $builder->where('city_id', $id);
