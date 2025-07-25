@@ -59,6 +59,7 @@ function searchChildBarcodes() {
                   
               </td>
               <td>${row.item_status}</td>
+              <td>${row.created_at}</td>
 
               <td>
                   <button class="btn btn-sm btn-danger" onclick="deleteChildBarcode(${
@@ -82,6 +83,10 @@ function searchChildBarcodes() {
   });
 }
 
+
+
+
+// out item
 function searchChildBarcodesout() {
   const inventoryId = $("#inventorySearch").val().trim();
 
@@ -142,6 +147,7 @@ function searchChildBarcodesout() {
                   
               </td>
               <td>${row.item_status}</td>
+              <td>${row.updated_at}</td>
 
               <td>
                   <button class="btn btn-sm btn-danger" onclick="deleteChildBarcode(${

@@ -11,6 +11,8 @@ use App\Models\BarcodeModel;
 // use App\Models\CustomerInventoryModel;
 // use App\Models\BarcodeModel;
 use App\Models\CustomerInventoryChildBarcodeModel;
+use App\Models\PineInfoLeadModel;
+
 // use Picqer\Barcode\BarcodeGeneratorPNG;
 
 
@@ -18,7 +20,30 @@ class Home extends BaseController
 {
 
     public function index()
+
+
+
+
+
     {
+
+        $model = new CustomerInventoryChildBarcodeModel();
+
+        $today = date('Y-m-d');
+
+        // Count how many barcodes were created today with status 'in'
+        $inCount = $model
+            ->where('item_status', 'in')
+            ->where('DATE(created_at)', $today)
+            ->countAllResults();
+
+        // Count how many barcodes were updated today with status 'out'
+        $outCount = $model
+            ->where('item_status', 'out')
+            ->where('DATE(updated_at)', $today)
+            ->countAllResults();
+
+        $data = [];
         $warehouseModel = new WarehouseModel();
         $cards = $warehouseModel->findAll();
 
@@ -30,11 +55,15 @@ class Home extends BaseController
         return view('templates/header')
             . view('templates/sidebar')
             . view('Home/index', [
-                'cards' => $cards,
+                'inCount'  => $inCount,
+                'outCount' => $outCount,
+                // 'cards' => $cards,
                 'totalLeads' => $totalLeads
             ])
             . view('templates/htmlclose');
     }
+
+
 
 
     public function login()
@@ -120,21 +149,6 @@ class Home extends BaseController
         ]);
     }
 
-
-    // public function viewInventory($leadId)
-    // {
-    //     $db = \Config\Database::connect();
-
-    //     // Get inventory matching this upload_inventory_id (lead ID)
-    //     $builder = $db->table('customer_inventory');
-    //     $builder->where('upload_inventory_id', $leadId);
-    //     $query = $builder->get();
-
-    //     $inventory = $query->getResult();
-
-    //     return view('templates/header') . view('templates/sidebar') . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId]) . view('templates/htmlclose');
-    // }
-
     public function viewInventory($leadId)
     {
         $db = \Config\Database::connect();
@@ -148,163 +162,6 @@ class Home extends BaseController
             . view('Home/admin_cutomer_inventory', ['inventory' => $inventory, 'leadId' => $leadId])
             . view('templates/htmlclose');
     }
-
-    // public function customerviewInventory($leadId)
-    // {
-    //     $leadModel = new PineUploadInventoryModel();
-    //     $inventoryModel = new \App\Models\CustomerInventoryModel();
-
-    //     // Fetch customer (lead) by ID
-    //     $customer = $leadModel->find($leadId);
-
-    //     // Fetch customer inventory using upload_inventory_id
-    //     $inventoryItems = $inventoryModel
-    //         ->where('upload_inventory_id', $leadId)
-    //         ->findAll();
-
-    //     return view('inventory/view_inventory', [
-    //         'customer' => $customer,
-    //         'inventoryItems' => $inventoryItems,
-    //     ]);
-    // }
-
-
-
-
-
-    // public function addInventory()
-    // {
-    //     $data = $this->request->getPost();
-
-    //     $db = \Config\Database::connect();
-    //     $db->table('customer_inventory')->insert([
-    //         'upload_inventory_id' => $data['upload_inventory_id'],
-    //         'item_name' => $data['item_name'],
-    //         'quantity' => $data['quantity'],
-    //         // 'assemble' => $data['assemble'],
-    //         // 'crating' => $data['crating'],
-    //         // 'dismounting' => $data['dismounting']
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Inventory added successfully.');
-    // }
-
-    // G; // Make sure this is installed via Composer
-
-
-    // public function addInventory()
-    // {
-    //     $inventoryModel = new CustomerInventoryModel();
-    //     $barcodeModel   = new BarcodeModel();
-
-    //     $uploadInventoryId = $this->request->getPost('upload_inventory_id');
-    //     $itemName          = $this->request->getPost('item_name');
-    //     $quantity          = $this->request->getPost('quantity');
-
-    //     // You must already have these available based on logged-in user or passed hidden input
-    //     $customerId      = $this->request->getPost('customer_id'); // from form
-    //     $customerName    = $this->request->getPost('customer_name'); // from form
-    //     $contactNumber   = $this->request->getPost('contact_number'); // from form
-
-    //     // Insert into customer_inventory
-    //     $inventoryModel->insert([
-    //         'upload_inventory_id' => $uploadInventoryId,
-    //         'item_name'           => $itemName,
-    //         'quantity'            => $quantity,
-    //     ]);
-
-    //     $inventoryId = $inventoryModel->getInsertID(); // Last inserted inventory ID
-
-    //     // Combine customer info for barcode value
-    //     $barcodeValue = "CUST{$customerId}-{$customerName}-{$contactNumber}-INV{$inventoryId}";
-
-    //     // Generate barcode image
-    //     $barcodeDir = FCPATH . '/barcodes/';
-    //     if (!is_dir($barcodeDir)) {
-    //         mkdir($barcodeDir, 0777, true);
-    //     }
-
-    //     $generator = new BarcodeGeneratorPNG();
-    //     $barcodeData = $generator->getBarcode($barcodeValue, $generator::TYPE_CODE_128);
-    //     $barcodeFileName = $barcodeValue . '.png';
-    //     $barcodePath = $barcodeDir . $barcodeFileName;
-
-    //     file_put_contents($barcodePath, $barcodeData);
-
-    //     // Insert into barcode table
-    //     $barcodeModel->insert([
-    //         'rack_product_id' => $inventoryId,
-    //         'barcode_value'   => $barcodeValue,
-    //         'qr_image_path'   => '/barcodes/' . $barcodeFileName,
-    //         'generated_by'    => session()->get('user_id') ?? 0,
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Item added and barcode generated.');
-    // }
-
-
-
-    // with barcode
-    // public function addInventory()
-    // {
-    //     $inventoryModel = new CustomerInventoryModel();
-    //     $barcodeModel   = new BarcodeModel();
-
-    //     $uploadInventoryId = $this->request->getPost('upload_inventory_id');
-    //     $itemName          = $this->request->getPost('item_name');
-    //     $quantity          = $this->request->getPost('quantity');
-
-    //     // Get customer info from form (you are manually passing these)
-    //     $customerId      = $this->request->getPost('customer_id');
-    //     $customerName    = $this->request->getPost('customer_name');
-    //     $contactNumber   = $this->request->getPost('contact_number');
-
-    //     // Step 1: Insert into customer_inventory
-    //     $inventoryData = [
-    //         'upload_inventory_id' => $uploadInventoryId,
-    //         'item_name'           => $itemName,
-    //         'quantity'            => $quantity,
-    //     ];
-    //     $inventoryModel->insert($inventoryData);
-    //     $inventoryId = $inventoryModel->getInsertID();
-
-    //     // Step 2: Generate barcode value
-    //     $barcodeValue = 'PNV-' . str_pad($inventoryId, 4, '0', STR_PAD_LEFT);
-
-    //     // Step 3: Generate barcode image
-    //     $barcodeDir = FCPATH . '/barcodes/';
-    //     if (!is_dir($barcodeDir)) {
-    //         mkdir($barcodeDir, 0777, true);
-    //     }
-
-    //     $generator = new BarcodeGeneratorPNG();
-    //     $barcodeData = $generator->getBarcode($barcodeValue, $generator::TYPE_CODE_128);
-    //     $barcodeFileName = $barcodeValue . '.png';
-    //     $barcodePath = $barcodeDir . $barcodeFileName;
-    //     file_put_contents($barcodePath, $barcodeData);
-
-    //     // Step 4: Insert into pine_store_warehouse_barcodes table
-    //     $barcodeModel->insert([
-    //         'rack_product_id'   => $inventoryId,
-    //         'barcode_value'     => $barcodeValue,
-    //         'qr_image_path'     => '/barcodes/' . $barcodeFileName,
-    //         'generated_by'      => session()->get('user_id') ?? 0,
-    //         'customer_id'       => $customerId,
-    //         'customer_name'     => $customerName,
-    //         'customer_contact'  => $contactNumber,
-    //     ]);
-
-    //     // Step 5: Update customer_inventory with barcode_value
-    //     if ($inventoryId && !empty($barcodeValue)) {
-    //         $inventoryModel->update($inventoryId, [
-    //             'barcode_value' => $barcodeValue
-    //         ]);
-    //     }
-
-
-    //     return redirect()->back()->with('success', 'Item added and barcode generated.');
-    // }
-
 
 
     public function addInventory()
@@ -471,24 +328,24 @@ class Home extends BaseController
 
 
 
-    public function updateInventory($id)
-    {
-        $model = new \App\Models\CustomerInventoryModel();
+    // public function updateInventory($id)
+    // {
+    //     $model = new \App\Models\CustomerInventoryModel();
 
-        $data = [
-            'item_name'   => $this->request->getPost('item_name'),
-            'quantity'    => $this->request->getPost('quantity'),
-            // 'assemble'    => $this->request->getPost('assemble'),
-            // 'crating'     => $this->request->getPost('crating'),
-            // 'dismounting' => $this->request->getPost('dismounting'),
-        ];
+    //     $data = [
+    //         'item_name'   => $this->request->getPost('item_name'),
+    //         'quantity'    => $this->request->getPost('quantity'),
+    //         // 'assemble'    => $this->request->getPost('assemble'),
+    //         // 'crating'     => $this->request->getPost('crating'),
+    //         // 'dismounting' => $this->request->getPost('dismounting'),
+    //     ];
 
-        if ($model->update($id, $data)) {
-            return redirect()->back()->with('success', 'Inventory updated successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to update inventory.');
-        }
-    }
+    //     if ($model->update($id, $data)) {
+    //         return redirect()->back()->with('success', 'Inventory updated successfully.');
+    //     } else {
+    //         return redirect()->back()->with('error', 'Failed to update inventory.');
+    //     }
+    // }
 
 
 
@@ -600,33 +457,33 @@ class Home extends BaseController
     //     return view('templates/header') . view('templates/sidebar') . view('Home/inventory_report', $data) . view('templates/htmlclose');
     // }
 
- public function inventory_report($id)
-{
-    // Load models
-    $inventoryModel       = new \App\Models\CustomerInventoryModel();
-    $childBarcodeModel    = new \App\Models\CustomerInventoryChildBarcodeModel();
+    public function inventory_report($id)
+    {
+        // Load models
+        $inventoryModel       = new \App\Models\CustomerInventoryModel();
+        $childBarcodeModel    = new \App\Models\CustomerInventoryChildBarcodeModel();
 
-    // Fetch parent inventory item
-    $parentInventory = $inventoryModel->find($id);
+        // Fetch parent inventory item
+        $parentInventory = $inventoryModel->find($id);
 
-    if (!$parentInventory) {
-        return redirect()->to('/dashboard')->with('error', 'Inventory not found.');
+        if (!$parentInventory) {
+            return redirect()->to('/dashboard')->with('error', 'Inventory not found.');
+        }
+
+        // Fetch all child barcodes for this inventory item 
+        $childBarcodes = $childBarcodeModel->where('inventory_id', $id)->findAll();
+
+        // Pass data to view
+        $data = [
+            'inventory'      => $parentInventory,
+            'childBarcodes'  => $childBarcodes,
+        ];
+
+        return view('templates/header')
+            . view('templates/sidebar')
+            . view('Home/inventory_report', $data)
+            . view('templates/htmlclose');
     }
-
-    // Fetch all child barcodes for this inventory item 
-    $childBarcodes = $childBarcodeModel->where('inventory_id', $id)->findAll();
-
-    // Pass data to view
-    $data = [
-        'inventory'      => $parentInventory,
-        'childBarcodes'  => $childBarcodes,
-    ];
-
-    return view('templates/header')
-        . view('templates/sidebar')
-        . view('Home/inventory_report', $data)
-        . view('templates/htmlclose');
-}
 
 
 
@@ -663,5 +520,56 @@ class Home extends BaseController
         ]);
     }
 
-    // public function customerforadmin
+
+    public function getOrderLeads()
+    {
+        return view('templates/header') . view('templates/sidebar') . view('Home/mangerlead') . view('templates/htmlclose');
+    }
+
+    public function fetchOrderLeads()
+    {
+        $session = session();
+        $userId = $session->get('user_id');
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('pine_upload_inventory p');
+        $builder->select('p.id, p.customer_name, p.customer_mobile, p.city, p.state, p.spanco, p.created_at');
+        $builder->join('info_users u', 'p.city = u.assign_location OR p.state = u.assign_location');
+        $builder->where('p.spanco', 'Order');
+        $builder->where('u.user_id', $userId);
+        $builder->where('u.user_role', 'manager');
+        $builder->where('u.status', 'active');
+
+        $query = $builder->get();
+        return $this->response->setJSON($query->getResult());
+    }
+
+
+
+
+    public function dashboard()
+    {
+        $model = new CustomerInventoryChildBarcodeModel();
+
+        $today = date('Y-m-d');
+
+        // Count how many barcodes were created today with status 'in'
+        $inCount = $model
+            ->where('item_status', 'in')
+            ->where('DATE(created_at)', $today)
+            ->countAllResults();
+
+        // Count how many barcodes were updated today with status 'out'
+        $outCount = $model
+            ->where('item_status', 'out')
+            ->where('DATE(updated_at)', $today)
+            ->countAllResults();
+
+        $data = [
+            'inCount'  => $inCount,
+            'outCount' => $outCount,
+        ];
+
+        return view('dashboard/index', $data);
+    }
 }

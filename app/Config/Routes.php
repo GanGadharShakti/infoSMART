@@ -51,6 +51,7 @@ $routes->post('barcode/generate', 'BarcodeController::generate');
 $routes->get('barcode/list', 'BarcodeController::list');
 
 
+// $routes->post('barcode/generate', 'BarcodeController::generate');
 
 // ====================================================
 
@@ -58,7 +59,9 @@ $routes->get('barcode/list', 'BarcodeController::list');
 // // Home pages 
 $routes->get('/table', 'Home::table');
 // $routes->get('/customers', 'Home::customers');
-$routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']);
+// $routes->get('/customers', 'Home::customers', ['filter' => 'role:admin,manager']);
+$routes->get('/customer-inventory', 'customer_inventory::list', ['filter' => 'role:admin,manager']);
+
 // $routes->get('inventory/view/(:num)', 'Home::customerviewInventory/$1', ['filter' => 'role:admin,manager']);
 
 $routes->get('/upload_inventory', 'Home::upload_inventory');
@@ -78,7 +81,6 @@ $routes->get('/getLeadDetails/(:num)', 'Home::getLeadDetails/$1', ['filter' => '
 $routes->get('/inventory/view/(:num)', 'Home::viewInventory/$1');
 $routes->post('/inventory/add', 'Home::addInventory');
 $routes->post('inventory/update/(:num)', 'Home::updateInventory/$1');
-
 $routes->get('/inventory/delete/(:num)', 'Home::deleteInventory/$1');
 
 
@@ -106,3 +108,19 @@ $routes->post('child-barcodes/mark-out/(:num)', 'ChildBarcodeController::markOut
 // ==================================
 $routes->get('barcode-search/(:any)/(:any)', 'BarcodeSearchController::search/$1/$2');
 $routes->get('barcode-search-page', 'BarcodeSearchController::searchView');
+
+
+
+$routes->post('generate-customer-barcode', 'customer_inventory::generateBarcode');
+
+
+
+$routes->get('manager/order-leads', 'Home::getOrderLeads');
+$routes->get('manager/fetch-order-leads', 'Home::fetchOrderLeads');
+
+
+
+$routes->get('get-child-barcodes/(:num)', 'BarcodeController::getChildBarcodes/$1');
+
+
+

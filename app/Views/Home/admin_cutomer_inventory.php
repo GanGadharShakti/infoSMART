@@ -19,9 +19,6 @@
         <div class="row g-2 mb-3">
           <div class="col-md-2"><input class="form-control" name="item_name" placeholder="Item Name" required></div>
           <div class="col-md-2"><input class="form-control" name="quantity" placeholder="Quantity" required></div>
-          <!-- <div class="col-md-2"><input class="form-control" name="assemble" placeholder="Assemble"></div> -->
-          <!-- <div class="col-md-2"><input class="form-control" name="crating" placeholder="Crating"></div> -->
-          <!-- <div class="col-md-2"><input class="form-control" name="dismounting" placeholder="Dismounting"></div> -->
           <div class="col-md-2"><button class="btn btn-success w-100">Add Item</button></div>
         </div>
       </form>
@@ -34,11 +31,6 @@
               <th>id</th>
               <th>Item Name</th>
               <th>Quantity</th>
-              <!-- <th>Assemble</th>
-              <th>Crating</th>
-              <th>Dismounting</th> -->
-              <!-- <th>Barcode</th> -->
-
               <th>Actions</th>
             </tr>
           </thead>
@@ -49,69 +41,69 @@
                   <td><?= $index + 1 ?></td>
                   <td><?= esc($item->item_name ?? '-') ?></td>
                   <td><?= esc($item->quantity ?? '-') ?></td>
-
                   <td>
-                    <!-- Edit Button (opens modal) -->
-                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal<?= $item->id ?>">
-                      Edit
+                    <!-- Generate Barcode Button -->
+                    <button class="btn btn-sm btn-warning generate-barcode-btn"
+                      data-id="<?= $item->id ?>"
+                      data-itemname="<?= esc($item->item_name) ?>"
+                      data-quantity="<?= esc($item->quantity) ?>">
+                      Generate Barcode
                     </button>
-
-                    <!-- Delete Form -->
-                    <form action="<?= base_url('/inventory/delete/' . $item->id) ?>" method="get" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
                   </td>
                 </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="7" class="text-center text-muted">No inventory found for this customer.</td>
+              </tr>
+            <?php endif; ?>
+          </tbody>
 
-                <!-- Edit Modal -->
-
-                <!-- Edit Inventory Modal -->
-                <div class="modal fade" id="editModal<?= $item->id ?>" tabindex="-1" aria-labelledby="editModalLabel<?= $item->id ?>" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                      <form action="<?= base_url('inventory/update/' . $item->id) ?>" method="post">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="editModalLabel<?= $item->id ?>">Edit Inventory Item</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-body row g-3">
-                          <!-- Optional: Upload Inventory ID -->
-                          <input type="hidden" name="upload_inventory_id" value="<?= $leadId ?>">
-
-                          <div class="col-md-4">
-                            <label class="form-label">Item Name</label>
-                            <input type="text" class="form-control" name="item_name" value="<?= esc($item->item_name) ?>" required>
-                          </div>
-
-                          <div class="col-md-2">
-                            <label class="form-label">Quantity</label>
-                            <input type="number" class="form-control" name="quantity" value="<?= esc($item->quantity) ?>" required>
-                          </div>
-
-
-                        </div>
-
-                        <div class="modal-footer mt-3">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                          <button type="submit" class="btn btn-success">Update Item</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-
+        </table>
       </div>
-
-    <?php endforeach; ?>
-  <?php else: ?>
-    <tr>
-      <td colspan="7" class="text-center text-muted">No inventory found for this customer.</td>
-    </tr>
-  <?php endif; ?>
-  </tbody>
-  </table>
     </div>
   </div>
 </div>
-</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const generateButtons = document.querySelectorAll('.generate-barcode-btn');
+
+    generateButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const itemId = this.dataset.id;
+        const itemName = this.dataset.itemname;
+        const quantity = this.dataset.quantity;
+
+        if (confirm(`Generate parent and ${quantity} child barcodes for "${itemName}"?`)) {
+          fetch(`<?= base_url('generate-customer-barcode') ?>`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+              },
+              body: JSON.stringify({
+                item_id: itemId,
+                item_name: itemName,
+                quantity: quantity
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert('Barcodes generated successfully!');
+                location.reload();
+              } else {
+                alert('Error: ' + data.message);
+              }
+            })
+            .catch(err => {
+              console.error('Error:', err);
+              alert('An error occurred while generating barcodes.');
+            });
+        }
+      });
+    });
+  });
+</script>

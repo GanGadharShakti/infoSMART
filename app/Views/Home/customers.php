@@ -140,40 +140,28 @@ $cards = [
 
                         <!-- Responsive Table -->
 
-                        <h2>Inventory for <?= esc($customer['cust_name']) ?></h2>
 
-                        <table class="table table-bordered">
-                            <thead>
+                        <tbody>
+                            <?php foreach ($inventories as $i => $item): ?>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Item Name</th>
-                                    <th>Quantity</th>
-                                    <th>Barcode</th>
-                                    <th>Image</th>
-                                    <th>View Child Barcodes</th>
+                                    <td><?= $i + 1 ?></td>
+                                    <td><?= esc($item['item_name']) ?></td>
+                                    <td><?= esc($item['quantity']) ?></td>
+                                    <td><?= esc($item['barcode']['barcode_value'] ?? '-') ?></td>
+                                    <td>
+                                        <?php if (!empty($item['barcode']['qr_image_path'])): ?>
+                                            <img src="<?= base_url($item['barcode']['qr_image_path']) ?>" width="50">
+                                        <?php else: ?>
+                                            N/A
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="<?= base_url('inventory/child-barcodes/' . $item['id']) ?>" class="btn btn-sm btn-primary">View</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($inventories as $i => $item): ?>
-                                    <tr>
-                                        <td><?= $i + 1 ?></td>
-                                        <td><?= esc($item['item_name']) ?></td>
-                                        <td><?= esc($item['quantity']) ?></td>
-                                        <td><?= esc($item['barcode']['barcode_value'] ?? '-') ?></td>
-                                        <td>
-                                            <?php if (!empty($item['barcode']['qr_image_path'])): ?>
-                                                <img src="<?= base_url($item['barcode']['qr_image_path']) ?>" width="50">
-                                            <?php else: ?>
-                                                N/A
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <a href="<?= base_url('inventory/child-barcodes/' . $item['id']) ?>" class="btn btn-sm btn-primary">View</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                            <?php endforeach; ?>
+                        </tbody>
+
 
                         <!-- End of Table -->
                     </div>
@@ -1331,4 +1319,4 @@ $cards = [
         </div>
 
 
-        <script src="/assets/js/customerlead.js"></script>
+        <!-- <script src="/assets/js/customerlead.js"></script> -->

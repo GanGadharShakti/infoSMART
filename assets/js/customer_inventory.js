@@ -66,6 +66,7 @@ $(document).on("click", ".action-icon", function () {
     error: function () {
       $("#customerDetails").html("Error fetching customer.");
       $("#customerInventory").html("Error fetching inventory.");
-    }
+    },
   });
 });
+

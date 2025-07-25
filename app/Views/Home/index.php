@@ -1,34 +1,17 @@
 <!-- Array for dashboard -->
+
 <?php
 $cards = [
     [
-        'title' => "Today’s Moves",
-        'value' => '$15,0000',
-        'icon' => 'mdi-arrow-up-bold-circle-outline',
-        'color' => 'danger'
-    ],
-    [
-        'title' => "Tomorrow’s Moves",
-        'value' => '45,6334',
-        'icon' => 'mdi-arrow-right-bold-circle-outline',
-        'color' => 'info'
-    ],
-    [
-        'title' => "Week’s Moves",
-        'value' => '95,5741',
-        'icon' => 'mdi-calendar-week',
+        'title' => "Total In Today",
+        'value' => $inCount ?? '0',
+        'icon' => 'mdi-login',
         'color' => 'success'
     ],
     [
-        'title' => "Month’s Moves",
-        'value' => '95,5741',
-        'icon' => 'mdi-calendar-month',
-        'color' => 'success'
-    ],
-    [
-        'title' => "Month’s Closures",
-        'value' => '$15,0000',
-        'icon' => 'mdi-close-circle-outline',
+        'title' => "Total Out Today",
+        'value' => $outCount ?? '0',
+        'icon' => 'mdi-logout',
         'color' => 'danger'
     ],
     [
@@ -37,10 +20,11 @@ $cards = [
         'icon' => 'mdi-account-multiple-outline',
         'color' => 'info'
     ],
-
+    // You can add your other cards like "This Week", etc. below...
 ];
-
 ?>
+
+
 
 <!-- partial -->
 <div class="main-panel">
@@ -130,12 +114,12 @@ $cards = [
                                 <span class="ms-2">entries</span>
                             </div>
 
-                            <!-- Right Corner: Search Input -->
+                            <!-- Right Corner: Search Input
                             <div class="col-md-6 text-end">
                                 <label for="tableSearch" class="me-2">Search:</label>
                                 <input type="text" id="tableSearch"
                                     class="form-control form-control-sm w-auto d-inline">
-                            </div>
+                            </div> -->
                         </div>
 
                         <!-- Responsive Table -->

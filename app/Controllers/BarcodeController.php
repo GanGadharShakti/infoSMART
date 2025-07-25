@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\BarcodeModel;
-use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class BarcodeController extends BaseController
 {
@@ -94,42 +92,6 @@ class BarcodeController extends BaseController
 
         return redirect()->to(base_url('barcode/list'))->with('success', 'Barcode generated for ' . $barcodeValue);
     }
-
-
-
-
-    // public function list()
-    // {
-    //     $model = new BarcodeModel();
-    //     $data['barcodes'] = $model->findAll();
-
-    //     return view('templates/header')
-    //         . view('templates/sidebar')
-    //         . view('Home/barcode_list', $data)
-    //         . view('templates/htmlclose');
-    // }
-
-    // public function list()
-    // {
-    //     $db = \Config\Database::connect();
-
-    //     $builder = $db->table('pine_store_warehouse_barcodes b');
-    //     $builder->select('b.*, i.item_name, c.id AS customer_id, c.customer_name');
-    //     $builder->join('customer_inventory i', 'i.id = b.rack_product_id', 'left');
-    //     $builder->join('pine_upload_inventory c', 'c.id = i.upload_inventory_id', 'left');
-    //     $builder->orderBy('b.generated_at', 'DESC');
-
-
-    //     $query = $builder->get();
-    //     $data['barcodes'] = $query->getResultArray();
-
-    //     return view('templates/header')
-    //         . view('templates/sidebar')
-    //         . view('Home/barcode_list', $data)
-    //         . view('templates/htmlclose');
-    // }
-
-
     public function list()
     {
         $db = \Config\Database::connect();
@@ -165,5 +127,41 @@ class BarcodeController extends BaseController
             . view('templates/sidebar')
             . view('Home/barcode_list', $data)
             . view('templates/htmlclose');
+    }
+    public function getChildBarcodes($inventoryId)
+    {
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('customer_inventory_child_barcodes');
+        $builder->where('inventory_id', $inventoryId);
+        $query = $builder->get();
+        $barcodes = $query->getResultArray();
+
+        if (empty($barcodes)) {
+            echo '<p>No child barcodes found.</p>';
+            return;
+        }
+
+        echo '<div class="table-responsive"><table class="table table-bordered">';
+        echo '<thead><tr><th>#</th><th>Child Barcode</th><th>Serial</th><th>Status</th><th>QR</th><th>Created At</th></tr></thead><tbody>';
+
+        foreach ($barcodes as $index => $child) {
+            echo '<tr>';
+            echo '<td>' . ($index + 1) . '</td>';
+            echo '<td>' . esc($child['child_barcode_value']) . '</td>';
+            echo '<td>' . esc($child['serial_number']) . '</td>';
+            echo '<td>' . esc($child['item_status']) . '</td>';
+            echo '<td>';
+            if (!empty($child['qr_image_path'])) {
+                echo '<img src="' . base_url($child['qr_image_path']) . '" style="width:70px;" class="border rounded p-1">';
+            } else {
+                echo 'No QR';
+            }
+            echo '</td>';
+            echo '<td>' . date('d M Y, h:i A', strtotime($child['created_at'])) . '</td>';
+            echo '</tr>';
+        }
+
+        echo '</tbody></table></div>';
     }
 }

@@ -22,6 +22,7 @@
                                     <th>Quantity</th>
                                     <th>Product Box id</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,6 +34,14 @@
                                             <td><?= esc($item['quantity']) ?></td>
                                             <td><?= esc($item['id']) ?></td>
                                             <td><?= esc($item['inventory_status']) ?></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info view-child-btn"
+                                                    data-inventory-id="<?= esc($item['id']) ?>"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#childBarcodeModal">
+                                                    View Items
+                                                </button>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>
@@ -43,8 +52,41 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <!-- Child Barcode Modal -->
+                    <div class="modal fade" id="childBarcodeModal" tabindex="-1" aria-labelledby="childBarcodeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Child Barcodes</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="childBarcodeContent">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script>
+        document.querySelectorAll('.view-child-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const inventoryId = this.getAttribute('data-inventory-id');
+                const contentDiv = document.getElementById('childBarcodeContent');
+                contentDiv.innerHTML = 'Loading...';
+
+                fetch(`<?= base_url('get-child-barcodes') ?>/${inventoryId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        contentDiv.innerHTML = data;
+                    })
+                    .catch(() => {
+                        contentDiv.innerHTML = '<p class="text-danger">Error loading child barcodes.</p>';
+                    });
+            });
+        });
+    </script>

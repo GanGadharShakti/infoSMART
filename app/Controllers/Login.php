@@ -41,7 +41,7 @@ class Login extends BaseController
                 if ($user['user_role'] === 'admin') {
                     return redirect()->to('/dashboard');
                 } elseif ($user['user_role'] === 'manager') {
-                    return redirect()->to('/customers');
+                    return redirect()->to('/manager/order-leads');
                 } elseif ($user['user_role'] === 'customer') {
                     return redirect()->to('/inventorylist');
                 } else {

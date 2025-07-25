@@ -52,6 +52,7 @@
                                         <th>Serial No</th>
                                         <th>Barcode</th>
                                         <th>Status</th>
+                                        <th>Date/Time</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

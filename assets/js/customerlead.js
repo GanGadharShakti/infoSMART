@@ -26,7 +26,7 @@ $(document).ready(function () {
         sortBy,
       },
       success: function (response) {
-        const leads = re    sponse.data;
+        const leads = response.data;
         const totalPages = response.totalPages;
         $("#dataBody").empty();
 
